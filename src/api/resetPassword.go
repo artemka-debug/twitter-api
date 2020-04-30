@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/artemka-debug/twitter-api/src/db"
+	"github.com/artemka-debug/twitter-api/src/env"
 	"github.com/artemka-debug/twitter-api/src/utils"
 	"github.com/gin-gonic/gin"
 	"net/smtp"
@@ -24,16 +25,16 @@ func ResetPassword(c *gin.Context) {
 
 	auth := smtp.PlainAuth(
 			"",
-			"dovgopoly123@gmail.com",
-			"62137990Aa",
-			"mail.example.com",
+			env.Email,
+			env.Password,
+			env.Host,
 		)
 
 
 	err := smtp.SendMail(
-			"mail.example.com"+":25",
+			env.Host+":25",
 			auth,
-			"dovgopoly123@gmail.com",
+			env.Email,
 			[]string{body["email"].(string)},
 			[]byte("hi"),
 		)

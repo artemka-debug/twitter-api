@@ -1,1 +1,1 @@
-web: ./bin/twitter-api.git
+web: ./bin/twitter-api

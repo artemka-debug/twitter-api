@@ -2,6 +2,7 @@ package api
 
 import (
 	"errors"
+	"fmt"
 	"github.com/artemka-debug/twitter-api/src/db"
 	"github.com/artemka-debug/twitter-api/src/env"
 	"github.com/artemka-debug/twitter-api/src/utils"
@@ -22,25 +23,28 @@ func ResetPassword(c *gin.Context) {
 		return
 	}
 
+	fmt.Println("26")
 	auth := smtp.PlainAuth(
-			"",
-			env.Email,
-			env.Password,
-			env.Host,
-		)
-
+		"",
+		env.Email,
+		env.Password,
+		env.Host,
+	)
+	fmt.Println("33")
 
 	err := smtp.SendMail(
-			env.Host+":25",
-			auth,
-			env.Email,
-			[]string{body["email"].(string)},
-			[]byte("hi"),
-		)
+		env.Host+":25",
+		auth,
+		env.Email,
+		[]string{body["email"].(string)},
+		[]byte("hi"),
+	)
+	fmt.Println("42")
 
 	if utils.HandleError(err, c) {
 		return
 	}
+	fmt.Println("47")
 
 	utils.SendPosRes("", c)
 }

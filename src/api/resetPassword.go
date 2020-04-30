@@ -1,13 +1,18 @@
 package api
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/artemka-debug/twitter-api/src/db"
 	"github.com/artemka-debug/twitter-api/src/env"
+	"golang.org/x/crypto/bcrypt"
+	"io/ioutil"
+	"net/http"
+	"net/smtp"
+
 	"github.com/artemka-debug/twitter-api/src/utils"
 	"github.com/gin-gonic/gin"
-	"net/smtp"
 )
 
 func ResetPassword(c *gin.Context) {
@@ -23,28 +28,51 @@ func ResetPassword(c *gin.Context) {
 		return
 	}
 
-	fmt.Println("26")
-	auth := smtp.PlainAuth(
-		"",
-		env.Email,
-		env.Password,
-		env.Host,
-	)
-	fmt.Println("33")
+	url := "https://passwordwolf.com/api/?length=10&upper=off&lower=on&special=off&exclude=01234&repeat=1"
+	method := "GET"
 
-	err := smtp.SendMail(
-		env.Host+":25",
-		auth,
-		env.Email,
-		[]string{body["email"].(string)},
-		[]byte("hi"),
-	)
-	fmt.Println("42")
+	client := &http.Client {}
+	req, errorRequsting := http.NewRequest(method, url, nil)
 
-	if utils.HandleError(err, c) {
+	if utils.HandleError(errorRequsting, c) {
 		return
 	}
-	fmt.Println("47")
 
+	res, errorDoing := client.Do(req)
+	if utils.HandleError(errorDoing, c) {
+		return
+	}
+	defer res.Body.Close()
+	b, errorReading := ioutil.ReadAll(res.Body)
+
+	if utils.HandleError(errorReading, c) {
+		return
+	}
+	var data interface{}
+	errorParsingJSON := json.Unmarshal(b, &data)
+	if utils.HandleError(errorParsingJSON, c) {
+		return
+	}
+
+	newPass := data.([]interface{})[0].(map[string]interface{})
+	errorSendingEmail := smtp.SendMail("smtp.gmail.com:587",
+		smtp.PlainAuth("", env.Email, env.Password, "smtp.gmail.com"),
+		env.Email, []string{body["email"].(string)}, []byte(fmt.Sprintf("Your new password is %s", newPass["password"].(string))))
+
+	if utils.HandleError(errorSendingEmail, c) {
+		return
+	}
+	fmt.Println(newPass)
+	saltedBytes := []byte(newPass["password"].(string))
+	hashedBytes, errorHashing := bcrypt.GenerateFromPassword(saltedBytes, bcrypt.DefaultCost)
+
+	if utils.HandleError(errorHashing, c) {
+		return
+	}
+	_, errorQuerying := db.DB.Query(`update users set password = ? where email = ?`, hashedBytes, body["email"])
+
+	if utils.HandleError(errorQuerying, c) {
+		return
+	}
 	utils.SendPosRes("", c)
 }

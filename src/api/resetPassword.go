@@ -38,5 +38,10 @@ func ResetPassword(c *gin.Context) {
 			[]string{body["email"].(string)},
 			[]byte("hi"),
 		)
-	fmt.Println(auth, err)
+
+	if utils.HandleError(err, c) {
+		return
+	}
+
+	utils.SendPosRes("", c)
 }

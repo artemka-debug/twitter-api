@@ -9,6 +9,11 @@ import (
 )
 
 func Me(c *gin.Context) {
+	if c.GetHeader("Authorization") == "" {
+		utils.HandleError("token is not provided", c, 401)
+		return
+	}
+
 	var pl utils.CustomPayload
 	token := strings.Split(c.GetHeader("Authorization"), " ")[1]
 	_, err := jwt.Verify([]byte(token), secret.AppKey, &pl)

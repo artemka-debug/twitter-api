@@ -6,18 +6,12 @@ import (
 	"strings"
 )
 
-func HandleError(err interface{}, c *gin.Context) bool {
-	switch err.(type) {
-		case error:
-			fmt.Println("ERROR Error:", err)
-			token := c.GetHeader("Authorization")
-			if token != "" {
-				token = strings.Split(c.GetHeader("Authorization"), " ")[1]
-			}
-
-			SendErrorRes(c, err.(error).Error(), token)
-			return true
+func HandleError(err string, c *gin.Context, code int) {
+	fmt.Println("ERROR Error:", err)
+	token := c.GetHeader("Authorization")
+	if token != "" {
+		token = strings.Split(c.GetHeader("Authorization"), " ")[1]
 	}
 
-	return false
+	SendErrorRes(c, err, token, code)
 }

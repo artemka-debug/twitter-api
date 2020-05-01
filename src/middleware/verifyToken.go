@@ -13,7 +13,8 @@ func VerifyToken(c *gin.Context) {
 	token := strings.Split(c.GetHeader("Authorization"), " ")[1]
 	_, err := jwt.Verify([]byte(token), secret.AppKey, &pl)
 
-	if utils.HandleError(err, c) {
+	if err != nil {
+		utils.HandleError("authentication token is expired, try re-login into your account", c, 401)
 		c.Abort()
 		return
 	}

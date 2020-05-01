@@ -13,6 +13,7 @@ require (
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/joho/godotenv v1.3.0
 	github.com/mattn/go-shellwords v1.0.10 // indirect
+	github.com/mitchellh/mapstructure v1.3.0
 	golang.org/x/crypto v0.0.0-20200429183012-4b2356b1ed79
 	gopkg.in/urfave/cli.v1 v1.20.0 // indirect
 )

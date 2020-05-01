@@ -1,31 +1,28 @@
 package middleware
 
 import (
-	"encoding/json"
-	"errors"
+	"github.com/artemka-debug/twitter-api/src/middleware/parseBody"
 	"github.com/artemka-debug/twitter-api/src/utils"
 	"github.com/gin-gonic/gin"
 	"io/ioutil"
 )
 
 func BodyParser(c *gin.Context) {
-		var m map[string]interface{}
 		data, _ := ioutil.ReadAll(c.Request.Body)
 
 		if len(data) == 0 {
-			utils.HandleError(errors.New("no body"), c)
-			c.Abort()
-			return
-		}
-		var body map[string]interface{}
-		errorDecoding := json.Unmarshal(data, &body)
-		defer c.Request.Body.Close()
-
-		if utils.HandleError(errorDecoding, c) {
+			utils.HandleError("no data was send", c, 400)
 			c.Abort()
 			return
 		}
 
-		c.Set("body", m)
+		if c.Request.URL.Path == "/sign-up" {
+			parseBody.BodySignup(data, c)
+		} else if c.Request.URL.Path == "/login" {
+			parseBody.BodyLogin(data, c)
+		} else if c.Request.URL.Path == "/reset-password" {
+			parseBody.BodyResetPassword(data, c)
+		}
+
 		c.Next()
 }

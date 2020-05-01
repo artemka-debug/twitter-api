@@ -11,7 +11,7 @@ var (
 	MysqlPassword, _ = os.LookupEnv("DB_MYSQL_PASSWORD")
 	MysqlHost, _     = os.LookupEnv("DB_MYSQL_HOST")
 	MysqlDatabase, _ = os.LookupEnv("DB_MYSQL_DATABASE")
-	Host, _          = os.LookupEnv("HOST")
+	SmtpHost, _      = os.LookupEnv("SMTP_HOST")
 	Email, _         = os.LookupEnv("EMAIL")
 	Password, _      = os.LookupEnv("PASSWORD")
 )

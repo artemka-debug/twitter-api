@@ -1,7 +1,6 @@
 package api
 
 import (
-	"errors"
 	"github.com/artemka-debug/twitter-api/src/db"
 	"github.com/artemka-debug/twitter-api/src/utils"
 	"github.com/gin-gonic/gin"
@@ -9,40 +8,36 @@ import (
 )
 
 func SignUp(c *gin.Context) {
-	body := c.Keys["body"].(map[string]interface{})
-	saltedBytes := []byte(body["password"].(string))
+	body := c.Keys["body"].(utils.SignupSchema)
+	saltedBytes := []byte(body.Password)
 	hashedBytes, errorHashing := bcrypt.GenerateFromPassword(saltedBytes, bcrypt.DefaultCost)
-	if utils.HandleError(errorHashing, c) {
-		return
-	}
-	if utils.HandleError(utils.InputValidate(body), c) {
+	if errorHashing != nil {
+		utils.HandleError("try again", c, 500)
 		return
 	}
 
 	// checking if user already is in db
-	rows, errorQuerying := db.DB.Query("select email from Users where email = ?", body["email"])
-	if utils.HandleError(errorQuerying, c) {
-		return
-	}
-	if utils.HandleError(rows.Err(), c) {
+	rows, errorQuerying := db.DB.Query("select email from Users where email = ?", body.Email)
+	if errorQuerying != nil || rows.Err() != nil{
+		utils.HandleError("could not connect to database, try again", c, 500)
 		return
 	}
 
 	users := db.ReadSelect(rows)
 	//// Pushing if user is not in db
 	if len(users) != 0 {
-		if utils.HandleError(errors.New("user is in db"), c) {
-			return
-		}
+		utils.HandleError("we already have an account with this email", c, 403)
+		return
 	}
 
 	_, errorPushingUser := db.DB.Exec(`insert into Users (name, email, password, status, gender, totalLikes, profilePhoto)
-													values (?, ?, ?, ?, '', 0, '')`, body["nickname"], body["email"], string(hashedBytes), body["status"])
+													values (?, ?, ?, ?, '', 0, '')`, body.Nickname, body.Email, string(hashedBytes), body.Status)
 
-	if utils.HandleError(errorPushingUser, c) {
+	if errorPushingUser != nil {
+		utils.HandleError("could not add you to database, try again", c, 500)
 		return
 	}
-	token := utils.CreateToken(body["email"].(string), body["password"].(string))
+	token := utils.CreateToken(body.Email, body.Password)
 
-	utils.SendPosRes(token, c)
+	utils.SendPosRes(token, c, 201)
 }

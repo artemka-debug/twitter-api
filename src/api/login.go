@@ -1,7 +1,6 @@
 package api
 
 import (
-	"errors"
 	"github.com/artemka-debug/twitter-api/src/db"
 	"github.com/artemka-debug/twitter-api/src/utils"
 	"github.com/gin-gonic/gin"
@@ -9,27 +8,28 @@ import (
 )
 
 func Login(c *gin.Context) {
-	body := c.Keys["body"].(map[string]interface{})
-	rows, errorSelectingFromDb := db.DB.Query(`select password from users where email = ?`, body["email"])
+	body := c.Keys["body"].(utils.LoginSchema)
+	rows, errorSelectingFromDb := db.DB.Query(`select password from users where email = ?`, body.Email)
 
-	if utils.HandleError(errorSelectingFromDb, c) {
+	if errorSelectingFromDb != nil {
+		utils.HandleError("could not connect to database, try again", c, 500)
 		return
 	}
 	user := db.ReadSelect(rows)
 
 	if len(user) == 0 {
-		utils.HandleError(errors.New("no users found"), c)
+		utils.HandleError("you dont have an account, you need to sign up", c,  403)
 		return
 	}
-	token := utils.CreateToken(body["email"].(string), body["password"].(string))
+	token := utils.CreateToken(body.Email, body.Password)
 	if token == "" {
-		utils.SendErrorRes(c, "Not Authorized", "")
+		utils.SendErrorRes(c, "could not create token", "", 500)
 	}
 
-	if err := bcrypt.CompareHashAndPassword(user[0].([]byte), []byte(body["password"].(string))); err != nil {
-		utils.HandleError(errors.New("wrong password"), c)
+	if err := bcrypt.CompareHashAndPassword(user[0].([]byte), []byte(body.Password)); err != nil {
+		utils.HandleError("wrong password", c, 403)
 		return
 	}
 
-	utils.SendPosRes(token, c)
+	utils.SendPosRes(token, c, 200)
 }

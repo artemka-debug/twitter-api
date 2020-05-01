@@ -1,12 +1,6 @@
 package utils
 
-import (
-	"github.com/gbrlsnchs/jwt/v3"
-)
-
-type Token struct {
-	Token string `json:"token"`
-}
+import "github.com/gbrlsnchs/jwt/v3"
 
 type Res struct {
 	Token  string `json:"token"`
@@ -20,9 +14,17 @@ type CustomPayload struct {
 	password string
 }
 
-type UserSchema struct {
+type LoginSchema struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
-	Nickname string `json:"nickname" validate:"required,email,min=2,max=40"`
-	Status   string `json:"status" validate:"required,password,min=2,max=150"`
+}
+
+type ResetPassword struct {
+	Email    string `json:"email"`
+}
+
+type SignupSchema struct {
+	LoginSchema
+	Nickname string `json:"nickname"`
+	Status   string `json:"status"`
 }

@@ -22,7 +22,7 @@ func main() {
 	r.GET("/me", api.Me)
 	r.POST("/sign-up", middleware.BodyParser, middleware.InputValidate, api.SignUp)
 	r.POST("/login", middleware.BodyParser, middleware.InputValidate, api.Login)
-	r.PUT("/reset-password", middleware.BodyParser, api.ResetPassword)
+	r.PUT("/reset-password", middleware.BodyParser, middleware.InputValidate, api.ResetPassword)
 
 	err := r.Run(fmt.Sprintf(":%s", PORT))
 

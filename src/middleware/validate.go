@@ -33,7 +33,7 @@ func InputValidate(c *gin.Context) {
 			c.Abort()
 		}
 	} else if c.Request.URL.Path == "/reset-password" {
-		fields := c.Keys["body"].(utils.ResetPassword)
+		fields := c.Keys["body"].(utils.ResetPasswordSchema)
 
 		err := validation.ValidateStruct(&fields,
 			validation.Field(&fields.Email, validation.Required, validation.Match(regexp.MustCompile(`^[A-Za-z0-9._%+-]+@(?:[A-Za-z40-9-]+\.)+[A-Za-z]{2,10}$`))))
@@ -42,7 +42,30 @@ func InputValidate(c *gin.Context) {
 			utils.HandleError(err.Error(), c, 400)
 			c.Abort()
 		}
+	} else if c.Request.URL.Path == "/post" {
+		fields := c.Keys["body"].(utils.PostSchema)
+
+		err := validation.ValidateStruct(&fields,
+			validation.Field(&fields.Id, validation.Required),
+			validation.Field(&fields.Title, validation.Required, validation.Match(regexp.MustCompile(`[a-z_\-]{3,40}`))),
+			validation.Field(&fields.Text, validation.Required, validation.Length(3, 255)))
+
+		if err != nil {
+			utils.HandleError(err.Error(), c, 400)
+			c.Abort()
+		}
+	} else if c.Request.URL.Path == "/remove-user" {
+		fields := c.Keys["body"].(utils.RemoveUserSchema)
+
+		err := validation.ValidateStruct(&fields,
+			validation.Field(&fields.Id, validation.Required),
+			validation.Field(&fields.Password, validation.Required, validation.Match(regexp.MustCompile(`\w{6,24}`))))
+
+		if err != nil {
+			utils.HandleError(err.Error(), c, 400)
+			c.Abort()
+		}
 	}
 
-	c.Next()
+		c.Next()
 }

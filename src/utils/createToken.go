@@ -15,8 +15,8 @@ func CreateToken(email, password string) string {
 			NotBefore:      jwt.NumericDate(now.Add(30 * time.Minute)),
 			IssuedAt:       jwt.NumericDate(now),
 		},
-		email: email,
-		password: password,
+		Email: email,
+		Password: password,
 	}
 
 	token, err := jwt.Sign(pl, secret.AppKey)

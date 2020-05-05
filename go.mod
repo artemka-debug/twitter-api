@@ -11,6 +11,7 @@ require (
 	github.com/gin-gonic/gin v1.6.2
 	github.com/go-ozzo/ozzo-validation v3.6.0+incompatible
 	github.com/go-sql-driver/mysql v1.5.0
+	github.com/golang/protobuf v1.3.3
 	github.com/joho/godotenv v1.3.0
 	github.com/mattn/go-shellwords v1.0.10 // indirect
 	github.com/mitchellh/mapstructure v1.3.0

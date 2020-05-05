@@ -5,17 +5,19 @@ import (
 )
 
 func SendErrorRes(c *gin.Context, err, token string, code int) {
-	c.JSON(code, gin.H{
-		"token": token,
-		"result": false,
-		"error": err,
+	c.JSON(code, Res{
+		Token: token,
+		Result: false,
+		Error: err,
+		Id: 0,
 	})
 }
 
-func SendPosRes(token string, c *gin.Context, code int) {
-	c.JSON(code, gin.H{
-		"token": token,
-		"result": true,
-		"error": nil,
+func SendPosRes(token string, c *gin.Context, code int, id int) {
+	c.JSON(code, Res{
+		Token: token,
+		Result: true,
+		Error: "",
+		Id: id,
 	})
 }

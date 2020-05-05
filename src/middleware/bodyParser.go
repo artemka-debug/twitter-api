@@ -22,6 +22,10 @@ func BodyParser(c *gin.Context) {
 			parseBody.BodyLogin(data, c)
 		} else if c.Request.URL.Path == "/reset-password" {
 			parseBody.BodyResetPassword(data, c)
+		} else if c.Request.URL.Path == "/post" {
+			parseBody.BodyPost(data, c)
+		} else if c.Request.URL.Path == "/remove-user" {
+			parseBody.BodyRemoveUser(data, c)
 		}
 
 		c.Next()

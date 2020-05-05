@@ -12,19 +12,14 @@ import (
 )
 
 func ResetPassword(c *gin.Context) {
-	body := c.Keys["body"].(utils.ResetPassword)
-	rows, errorSelectingFromDb := db.DB.Query(`select password from users where email = ?`, body.Email)
+	body := c.Keys["body"].(utils.ResetPasswordSchema)
+	id := -1
+	errorSelectingFromDb := db.DB.QueryRow(`select User_PK from users where email = ?`, body.Email).Scan(&id)
+
 	if errorSelectingFromDb != nil {
-		utils.HandleError("could not connect to database, try again", c, 500)
+		utils.HandleError("you dont have an account, you need to sign up", c, 400)
 		return
 	}
-
-	user := db.ReadSelect(rows)
-	if len(user) == 0 {
-		utils.HandleError("you dont have an account, you need to sign up", c, 403)
-		return
-	}
-
 	newPass := utils.GeneratePassword()
 	errorSendingEmail := smtp.SendMail(env.SmtpHost+ ":587",
 		smtp.PlainAuth("", env.Email, env.Password, env.SmtpHost),
@@ -48,5 +43,5 @@ func ResetPassword(c *gin.Context) {
 		utils.HandleError("could not connect to database, try again", c, 500)
 		return
 	}
-	utils.SendPosRes("", c, 201)
+	utils.SendPosRes("", c, 201, id)
 }

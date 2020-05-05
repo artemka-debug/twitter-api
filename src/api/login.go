@@ -9,27 +9,25 @@ import (
 
 func Login(c *gin.Context) {
 	body := c.Keys["body"].(utils.LoginSchema)
-	rows, errorSelectingFromDb := db.DB.Query(`select password from users where email = ?`, body.Email)
+	var password string
+	var id int
+	errorSelectingFromDb := db.DB.QueryRow(`select User_PK, password from users where email = ?`, body.Email).Scan(&id, &password)
 
 	if errorSelectingFromDb != nil {
-		utils.HandleError("could not connect to database, try again", c, 500)
+		utils.HandleError("you dont have an account, you need to sign up", c, 400)
 		return
 	}
-	user := db.ReadSelect(rows)
 
-	if len(user) == 0 {
-		utils.HandleError("you dont have an account, you need to sign up", c,  403)
-		return
-	}
 	token := utils.CreateToken(body.Email, body.Password)
 	if token == "" {
 		utils.SendErrorRes(c, "could not create token", "", 500)
+		return
 	}
 
-	if err := bcrypt.CompareHashAndPassword(user[0].([]byte), []byte(body.Password)); err != nil {
+	if err := bcrypt.CompareHashAndPassword([]byte(password), []byte(body.Password)); err != nil {
 		utils.HandleError("wrong password", c, 403)
 		return
 	}
 
-	utils.SendPosRes(token, c, 200)
+	utils.SendPosRes(token, c, 200, id)
 }

@@ -7,7 +7,7 @@ import (
 )
 
 func BodyResetPassword(data []byte, c *gin.Context) {
-	var body utils.ResetPassword
+	var body utils.ResetPasswordSchema
 
 	errorDecoding := json.Unmarshal(data, &body)
 	defer c.Request.Body.Close()

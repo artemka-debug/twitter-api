@@ -22,5 +22,5 @@ func Me(c *gin.Context) {
 		return
 	}
 
-	utils.SendPosRes(token, c, 200)
+	utils.SendPosRes(token, c, 200, 0)
 }

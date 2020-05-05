@@ -1,6 +1,7 @@
 package api
 
 import (
+	"fmt"
 	"github.com/artemka-debug/twitter-api/src/db"
 	"github.com/artemka-debug/twitter-api/src/utils"
 	"github.com/gin-gonic/gin"
@@ -16,28 +17,25 @@ func SignUp(c *gin.Context) {
 		return
 	}
 
+	var email string
 	// checking if user already is in db
-	rows, errorQuerying := db.DB.Query("select email from Users where email = ?", body.Email)
-	if errorQuerying != nil || rows.Err() != nil{
-		utils.HandleError("could not connect to database, try again", c, 500)
+	errorQuerying := db.DB.QueryRow("select email from Users where email = ?", body.Email).Scan(&email)
+	if errorQuerying == nil {
+		utils.HandleError("you already have an account", c, 500)
 		return
 	}
 
-	users := db.ReadSelect(rows)
-	//// Pushing if user is not in db
-	if len(users) != 0 {
-		utils.HandleError("we already have an account with this email", c, 403)
-		return
-	}
-
-	_, errorPushingUser := db.DB.Exec(`insert into Users (name, email, password, status, gender, totalLikes, profilePhoto)
+	var id int
+	_, errorPushingUser := db.DB.Query(`insert into Users (name, email, password, status, gender, totalLikes, profilePhoto)
 													values (?, ?, ?, ?, '', 0, '')`, body.Nickname, body.Email, string(hashedBytes), body.Status)
 
+	_ = db.DB.QueryRow(`select User_PK from users where email = ?`, body.Email).Scan(&id)
+	fmt.Println("ID", id)
 	if errorPushingUser != nil {
 		utils.HandleError("could not add you to database, try again", c, 500)
 		return
 	}
 	token := utils.CreateToken(body.Email, body.Password)
 
-	utils.SendPosRes(token, c, 201)
+	utils.SendPosRes(token, c, 201, id)
 }

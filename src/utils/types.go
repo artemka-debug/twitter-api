@@ -1,17 +1,26 @@
 package utils
 
-import "github.com/gbrlsnchs/jwt/v3"
+import (
+	"github.com/gbrlsnchs/jwt/v3"
+)
 
 type Res struct {
 	Token  string `json:"token"`
 	Result bool   `json:"result"`
 	Error  string `json:"error"`
+	Id     int    `json:"id"`
 }
 
 type CustomPayload struct {
 	jwt.Payload
-	email string
-	password string
+	Email    string
+	Password string
+}
+
+type PostSchema struct {
+	Title string `json:"title"`
+	Text  string `json:"text"`
+	Id    int    `json:"id"`
 }
 
 type LoginSchema struct {
@@ -19,8 +28,13 @@ type LoginSchema struct {
 	Password string `json:"password"`
 }
 
-type ResetPassword struct {
-	Email    string `json:"email"`
+type ResetPasswordSchema struct {
+	Email string `json:"email"`
+}
+
+type RemoveUserSchema struct {
+	Id       int    `json:"id"`
+	Password string `json:"password"`
 }
 
 type SignupSchema struct {

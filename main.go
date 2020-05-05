@@ -10,7 +10,7 @@ import (
 
 func main() {
 	r := gin.Default()
-	gin.SetMode(gin.DebugMode)
+	gin.SetMode(gin.ReleaseMode)
 	PORT, exists := os.LookupEnv("PORT")
 
 	if !exists {
@@ -21,8 +21,10 @@ func main() {
 
 	r.GET("/me", api.Me)
 	r.POST("/sign-up", middleware.BodyParser, middleware.InputValidate, api.SignUp)
-	r.POST("/login", middleware.BodyParser, middleware.InputValidate, api.Login)
+	r.POST("/login", middleware.BodyParser, middleware.InputValidate, middleware.VerifyToken, api.Login)
 	r.PUT("/reset-password", middleware.BodyParser, middleware.InputValidate, api.ResetPassword)
+	r.DELETE("/remove-user", middleware.BodyParser, middleware.InputValidate, middleware.VerifyToken, api.RemoveUser)
+	r.POST("/post", middleware.BodyParser, middleware.InputValidate, middleware.VerifyToken, api.Post)
 
 	err := r.Run(fmt.Sprintf(":%s", PORT))
 

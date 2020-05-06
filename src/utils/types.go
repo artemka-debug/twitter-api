@@ -4,23 +4,22 @@ import (
 	"github.com/gbrlsnchs/jwt/v3"
 )
 
-type Res struct {
-	Token  string `json:"token"`
-	Result bool   `json:"result"`
-	Error  string `json:"error"`
-	Id     int    `json:"id"`
+type CommentSchema struct {
+	PostId int    `json:"post_id"`
+	Text   string `json:"text"`
+	UserId int    `json:"user_id"`
 }
 
 type CustomPayload struct {
 	jwt.Payload
-	Email    string
+	Id       int
 	Password string
 }
 
 type PostSchema struct {
-	Title string `json:"title"`
-	Text  string `json:"text"`
-	Id    int    `json:"id"`
+	Title  string `json:"title"`
+	Text   string `json:"text"`
+	UserId int    `json:"user_id"`
 }
 
 type LoginSchema struct {

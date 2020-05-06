@@ -11,7 +11,7 @@ func BodyParser(c *gin.Context) {
 		data, _ := ioutil.ReadAll(c.Request.Body)
 
 		if len(data) == 0 {
-			utils.HandleError("no data was send", c, 400)
+			utils.HandleError([]string{"no data was send"}, "req body is empty", c, 400)
 			c.Abort()
 			return
 		}
@@ -26,6 +26,8 @@ func BodyParser(c *gin.Context) {
 			parseBody.BodyPost(data, c)
 		} else if c.Request.URL.Path == "/remove-user" {
 			parseBody.BodyRemoveUser(data, c)
+		} else if c.Request.URL.Path == "/add-comment" {
+			parseBody.BodyComment(data, c)
 		}
 
 		c.Next()

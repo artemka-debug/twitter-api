@@ -13,7 +13,7 @@ func VerifyToken(c *gin.Context) {
 	var pl utils.CustomPayload
 
 	if c.GetHeader("Authorization") == "" {
-		utils.HandleError("authentication was not provided, try re-login into your account", c, 401)
+		utils.HandleError([]string{"try to re-login"}, "authentication header was not provided", c, 401)
 		c.Abort()
 		return
 	}
@@ -22,7 +22,7 @@ func VerifyToken(c *gin.Context) {
 	_, err := jwt.Verify([]byte(token), secret.AppKey, &pl)
 
 	if err != nil {
-		utils.HandleError("authentication token is expired, try re-login into your account", c, 401)
+		utils.HandleError([]string{"try to re-login"}, err.Error(), c, 401)
 		c.Abort()
 		return
 	}

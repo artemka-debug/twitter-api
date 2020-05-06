@@ -13,7 +13,7 @@ func BodyPost(data []byte, c *gin.Context) {
 	defer c.Request.Body.Close()
 
 	if errorDecoding != nil {
-		utils.HandleError("could not parse your data, try again", c, 400)
+		utils.HandleError([]string{"could not parse your data, try again"}, errorDecoding.Error(), c, 400)
 		c.Abort()
 	}
 

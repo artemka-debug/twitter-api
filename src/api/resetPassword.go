@@ -17,7 +17,7 @@ func ResetPassword(c *gin.Context) {
 	errorSelectingFromDb := db.DB.QueryRow(`select User_PK from users where email = ?`, body.Email).Scan(&id)
 
 	if errorSelectingFromDb != nil {
-		utils.HandleError("you dont have an account, you need to sign up", c, 400)
+		utils.HandleError([]string{"you dont have an account, you need to sign up"}, errorSelectingFromDb.Error(), c, 400)
 		return
 	}
 	newPass := utils.GeneratePassword()
@@ -26,7 +26,7 @@ func ResetPassword(c *gin.Context) {
 		env.Email, []string{body.Email}, []byte(fmt.Sprintf("Your new password is %s", newPass)))
 
 	if errorSendingEmail != nil {
-		utils.HandleError("could not send your new password to your email", c, 500)
+		utils.HandleError([]string{"could not send your new password to your email"}, errorSendingEmail.Error(), c, 500)
 		return
 	}
 	fmt.Println(newPass)
@@ -34,14 +34,14 @@ func ResetPassword(c *gin.Context) {
 	hashedBytes, errorHashing := bcrypt.GenerateFromPassword(saltedBytes, bcrypt.DefaultCost)
 
 	if errorHashing != nil {
-		utils.HandleError("try again", c, 500)
+		utils.HandleError([]string{"try again"}, errorHashing.Error(), c, 500)
 		return
 	}
 	_, errorQuerying := db.DB.Query(`update users set password = ? where email = ?`, hashedBytes, body.Email)
 
 	if errorQuerying != nil {
-		utils.HandleError("could not connect to database, try again", c, 500)
+		utils.HandleError([]string{"could not connect to database, try again"}, errorQuerying.Error(), c, 500)
 		return
 	}
-	utils.SendPosRes("", c, 201, id)
+	utils.SendPosRes(c, 200, gin.H{})
 }

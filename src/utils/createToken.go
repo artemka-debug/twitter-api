@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func CreateToken(email, password string) string {
+func CreateToken(id int, password string) string {
 	now := time.Now()
 	pl := CustomPayload{
 		Payload: jwt.Payload{
@@ -15,7 +15,7 @@ func CreateToken(email, password string) string {
 			NotBefore:      jwt.NumericDate(now.Add(30 * time.Minute)),
 			IssuedAt:       jwt.NumericDate(now),
 		},
-		Email: email,
+		Id: id,
 		Password: password,
 	}
 

@@ -10,18 +10,18 @@ import (
 
 func main() {
 	r := gin.Default()
-	gin.SetMode(gin.ReleaseMode)
 	PORT, exists := os.LookupEnv("PORT")
 
 	if !exists {
-		PORT = "8000"
+		PORT = "3000"
 	}
 	fmt.Println("PORT", PORT)
 	r.Use(middleware.SetHeaders)
 
 	r.GET("/me", api.Me)
+	r.POST("/add-comment", middleware.BodyParser, middleware.InputValidate, middleware.VerifyToken, api.AddComment)
 	r.POST("/sign-up", middleware.BodyParser, middleware.InputValidate, api.SignUp)
-	r.POST("/login", middleware.BodyParser, middleware.InputValidate, middleware.VerifyToken, api.Login)
+	r.POST("/login", middleware.BodyParser, middleware.InputValidate, api.Login)
 	r.PUT("/reset-password", middleware.BodyParser, middleware.InputValidate, api.ResetPassword)
 	r.DELETE("/remove-user", middleware.BodyParser, middleware.InputValidate, middleware.VerifyToken, api.RemoveUser)
 	r.POST("/post", middleware.BodyParser, middleware.InputValidate, middleware.VerifyToken, api.Post)

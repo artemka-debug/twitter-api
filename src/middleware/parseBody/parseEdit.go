@@ -10,6 +10,7 @@ func BodyEdit(data []byte, c *gin.Context) {
 	var body utils.EditSchema
 
 	errorDecoding := json.Unmarshal(data, &body)
+
 	defer c.Request.Body.Close()
 
 	if errorDecoding != nil {

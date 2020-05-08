@@ -25,14 +25,17 @@ func main() {
 	r.POST("/login", middleware.BodyParser, middleware.InputValidate, api.Login)
 
 	// USER
-	r.DELETE("/user", middleware.BodyParser, middleware.InputValidate, middleware.VerifyToken, api.RemoveUser)
+	r.DELETE("/user", middleware.InputValidate, middleware.VerifyToken, api.RemoveUser)
 	r.PUT("/user", middleware.BodyParser, middleware.InputValidate, middleware.VerifyToken, api.Edit)
 	r.PUT("/user/password", middleware.BodyParser, middleware.InputValidate, middleware.VerifyToken, api.ChangePassword)
 	r.PUT("/user/password/reset", middleware.BodyParser, middleware.InputValidate, api.ResetPassword)
+	r.GET("/user/:id", middleware.InputValidate, middleware.VerifyToken, api.GetUser)
 
 	// TWEET
 	r.DELETE("/tweet/:id", middleware.BodyParser, middleware.InputValidate, middleware.VerifyToken, api.RemovePost)
 	r.POST("/tweet", middleware.BodyParser, middleware.InputValidate, middleware.VerifyToken, api.Post)
+	r.GET("/tweet/:id", middleware.InputValidate, middleware.VerifyToken, api.GetPost)
+	r.GET("/tweets", middleware.InputValidate, middleware.VerifyToken, api.GetPosts)
 
 	// COMMENT
 	r.POST("/comment", middleware.BodyParser, middleware.InputValidate, middleware.VerifyToken, api.AddComment)

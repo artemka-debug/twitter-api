@@ -50,12 +50,18 @@ func InputValidate(c *gin.Context) {
 
 				return nil
 			}), validation.Length(1, 255)))
-	} else if c.Request.URL.Path == "/user" {
+	} else if c.Request.URL.Path == "/user" && c.Request.Method == "PUT" {
 		fields := c.Keys["body"].(utils.EditSchema)
 
 		err = validation.ValidateStruct(&fields,
 			validation.Field(&fields.Nickname, validation.Match(regexp.MustCompile(`[a-z1-9_'\-]{3,40}`))),
-			validation.Field(&fields.Status, validation.Length(0, 150)))
+			validation.Field(&fields.Status, validation.Length(0, 150), validation.By(func(text interface{}) error {
+				if len(text.(string)) != 0 && strings.TrimSpace(text.(string)) == "" {
+					return errors.New(" comment cannot be blank")
+				}
+
+				return nil
+			})))
 	} else if c.Request.URL.Path == "/user/password" {
 		fields := c.Keys["body"].(utils.ChangePassword)
 

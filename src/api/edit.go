@@ -9,14 +9,13 @@ import (
 
 func Edit(c *gin.Context) {
 	body := c.Keys["body"].(utils.EditSchema)
+	fmt.Println("USER", body)
 
 	if body.Nickname == "" {
 		utils.HandleError([]string{"nickname is empty"}, "fuck you stupid, just add valid nickname)", c, 400)
+		return
 	}
-
-
 	userId := c.Keys["userId"].(int)
-	fmt.Println("USER", body)
 	_, errorUpdating := db.DB.Exec(`update Posts, Users
                     left join Posts P on Users.id = P.user_id
     				left join comments C on users.id = C.user_id

@@ -9,8 +9,10 @@ import (
 
 func Login(c *gin.Context) {
 	body := c.Keys["body"].(utils.LoginSchema)
+
 	var password string
 	var id int
+
 	errorSelectingFromDb := db.DB.QueryRow(`select id, password from users where email = ?`, body.Email).Scan(&id, &password)
 
 	if errorSelectingFromDb != nil {

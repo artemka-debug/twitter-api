@@ -26,7 +26,7 @@ func BodyParser(c *gin.Context) {
 			parseBody.BodyPost(data, c)
 		} else if c.Request.URL.Path == "/comment" {
 			parseBody.BodyComment(data, c)
-		} else if c.Request.URL.Path == "/user" {
+		} else if c.Request.URL.Path == "/user" && c.Request.Method == "PUT" {
 			parseBody.BodyEdit(data, c)
 		} else if c.Request.URL.Path == "/user/password" {
 			parseBody.BodyChangePassword(data, c)

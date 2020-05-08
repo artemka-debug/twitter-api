@@ -7,19 +7,21 @@ import (
 type CommentSchema struct {
 	PostId int    `json:"post_id"`
 	Text   string `json:"text"`
-	UserId int    `json:"user_id"`
 }
 
 type CustomPayload struct {
 	jwt.Payload
 	Id       int
-	Password string
+}
+
+type EditSchema struct {
+	Nickname string `json:"nickname"`
+	Status   string `json:"status"`
 }
 
 type PostSchema struct {
 	Title  string `json:"title"`
 	Text   string `json:"text"`
-	UserId int    `json:"user_id"`
 }
 
 type LoginSchema struct {
@@ -27,13 +29,12 @@ type LoginSchema struct {
 	Password string `json:"password"`
 }
 
-type ResetPasswordSchema struct {
-	Email string `json:"email"`
+type ChangePassword struct {
+	Password string `json:"password"`
 }
 
-type RemoveUserSchema struct {
-	Id       int    `json:"id"`
-	Password string `json:"password"`
+type ResetPasswordSchema struct {
+	Email string `json:"email"`
 }
 
 type SignupSchema struct {

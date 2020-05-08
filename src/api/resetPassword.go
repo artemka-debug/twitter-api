@@ -14,7 +14,7 @@ import (
 func ResetPassword(c *gin.Context) {
 	body := c.Keys["body"].(utils.ResetPasswordSchema)
 	id := -1
-	errorSelectingFromDb := db.DB.QueryRow(`select User_PK from users where email = ?`, body.Email).Scan(&id)
+	errorSelectingFromDb := db.DB.QueryRow(`select id from users where email = ?`, body.Email).Scan(&id)
 
 	if errorSelectingFromDb != nil {
 		utils.HandleError([]string{"you dont have an account, you need to sign up"}, errorSelectingFromDb.Error(), c, 400)

@@ -6,20 +6,20 @@ import (
 
 func SendErrorRes(c *gin.Context, code int, data gin.H) {
 	c.JSON(code, gin.H{
-		"data": gin.H{
+		"meta": gin.H{
 			"status": code,
 			"result": false,
 		},
-		"meta": data,
+		"data": data,
 	})
 }
 
 func SendPosRes(c *gin.Context, code int, data gin.H) {
 	c.JSON(code, gin.H{
-		"data": gin.H{
+		"meta": gin.H{
 			"status": code,
 			"result": true,
 		},
-		"meta": data,
+		"data": data,
 	})
 }

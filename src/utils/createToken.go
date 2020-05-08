@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func CreateToken(id int, password string) string {
+func CreateToken(id int) string {
 	now := time.Now()
 	pl := CustomPayload{
 		Payload: jwt.Payload{
@@ -16,7 +16,6 @@ func CreateToken(id int, password string) string {
 			IssuedAt:       jwt.NumericDate(now),
 		},
 		Id: id,
-		Password: password,
 	}
 
 	token, err := jwt.Sign(pl, secret.AppKey)

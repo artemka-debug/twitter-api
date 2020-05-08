@@ -20,14 +20,16 @@ func BodyParser(c *gin.Context) {
 			parseBody.BodySignup(data, c)
 		} else if c.Request.URL.Path == "/login" {
 			parseBody.BodyLogin(data, c)
-		} else if c.Request.URL.Path == "/reset-password" {
+		} else if c.Request.URL.Path == "/user/password/reset" {
 			parseBody.BodyResetPassword(data, c)
-		} else if c.Request.URL.Path == "/post" {
+		} else if c.Request.URL.Path == "/tweet" {
 			parseBody.BodyPost(data, c)
-		} else if c.Request.URL.Path == "/remove-user" {
-			parseBody.BodyRemoveUser(data, c)
-		} else if c.Request.URL.Path == "/add-comment" {
+		} else if c.Request.URL.Path == "/comment" {
 			parseBody.BodyComment(data, c)
+		} else if c.Request.URL.Path == "/user" {
+			parseBody.BodyEdit(data, c)
+		} else if c.Request.URL.Path == "/user/password" {
+			parseBody.BodyChangePassword(data, c)
 		}
 
 		c.Next()

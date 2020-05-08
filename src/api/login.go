@@ -11,14 +11,14 @@ func Login(c *gin.Context) {
 	body := c.Keys["body"].(utils.LoginSchema)
 	var password string
 	var id int
-	errorSelectingFromDb := db.DB.QueryRow(`select User_PK, password from users where email = ?`, body.Email).Scan(&id, &password)
+	errorSelectingFromDb := db.DB.QueryRow(`select id, password from users where email = ?`, body.Email).Scan(&id, &password)
 
 	if errorSelectingFromDb != nil {
 		utils.HandleError([]string{"you dont have an account, you need to sign up"}, errorSelectingFromDb.Error(), c, 400)
 		return
 	}
 
-	token := utils.CreateToken(id, body.Password)
+	token := utils.CreateToken(id)
 	if token == "" {
 		utils.SendErrorRes(c,500, gin.H{
 			"error": "could not create token",

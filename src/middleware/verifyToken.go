@@ -27,15 +27,7 @@ func VerifyToken(c *gin.Context) {
 		return
 	}
 
-	// This code is probably checking if the token you are using belongs to you, because in payload there is email
-	// of the user who created this token and if emails does not equal needs to abort
-	// but for this i need to pass email every time i send and get some data
-	//if pl.Email == c.Keys["body"].Email {
-	//	utils.HandleError("authentication token is not yours, try re-login into your account", c, 401)
-	//	c.Abort()
-	//	return
-	//}
-
-	fmt.Println(pl)
+	fmt.Println("PAYLOAD ID", pl.Id)
+	c.Set("userId", pl.Id)
 	c.Next()
 }

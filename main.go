@@ -19,12 +19,23 @@ func main() {
 	r.Use(middleware.SetHeaders)
 
 	r.GET("/me", api.Me)
-	r.POST("/add-comment", middleware.BodyParser, middleware.InputValidate, middleware.VerifyToken, api.AddComment)
+
+	// REGISTRATION
 	r.POST("/sign-up", middleware.BodyParser, middleware.InputValidate, api.SignUp)
 	r.POST("/login", middleware.BodyParser, middleware.InputValidate, api.Login)
-	r.PUT("/reset-password", middleware.BodyParser, middleware.InputValidate, api.ResetPassword)
-	r.DELETE("/remove-user", middleware.BodyParser, middleware.InputValidate, middleware.VerifyToken, api.RemoveUser)
-	r.POST("/post", middleware.BodyParser, middleware.InputValidate, middleware.VerifyToken, api.Post)
+
+	// USER
+	r.DELETE("/user", middleware.BodyParser, middleware.InputValidate, middleware.VerifyToken, api.RemoveUser)
+	r.PUT("/user", middleware.BodyParser, middleware.InputValidate, middleware.VerifyToken, api.Edit)
+	r.PUT("/user/password", middleware.BodyParser, middleware.InputValidate, middleware.VerifyToken, api.ChangePassword)
+	r.PUT("/user/password/reset", middleware.BodyParser, middleware.InputValidate, api.ResetPassword)
+
+	// TWEET
+	r.DELETE("/tweet/:id", middleware.BodyParser, middleware.InputValidate, middleware.VerifyToken, api.RemovePost)
+	r.POST("/tweet", middleware.BodyParser, middleware.InputValidate, middleware.VerifyToken, api.Post)
+
+	// COMMENT
+	r.POST("/comment", middleware.BodyParser, middleware.InputValidate, middleware.VerifyToken, api.AddComment)
 
 	err := r.Run(fmt.Sprintf(":%s", PORT))
 

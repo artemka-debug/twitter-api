@@ -13,11 +13,34 @@ func GetPost(c *gin.Context) {
 	var time string
 	var likes, userId int
 
-	errorGetting := db.DB.QueryRow(`select nickname, title, time, text, likes, user_id from posts where id = ?`, id).Scan(&nickname, &title, &time, &text, &likes, &userId)
+	var comments []map[string]interface{}
 
-	if errorGetting != nil {
-		utils.HandleError([]string{"you don't have an account"}, errorGetting.Error(), c, 400)
+	errorGetting := db.DB.QueryRow(`select nickname, title, time, text, likes, user_id from posts where id = ?`, id).Scan(&nickname, &title, &time, &text, &likes, &userId)
+	res, err := db.DB.Query(`select user_id, text, nickname from comments where post_id = ?`, id)
+
+	if errorGetting != nil || err != nil {
+		utils.HandleError([]string{"this post is no longer available"}, errorGetting.Error(), c, 400)
 		return
+	}
+
+	for res.Next() {
+		var (
+			userId int
+			text string
+			nickname string
+		)
+		comment := make(map[string]interface{})
+
+		if err := res.Scan(&userId, &text, &nickname); err != nil {
+			utils.HandleError([]string{"could not get comments"}, err.Error(), c ,500)
+			return
+		}
+
+		comment["userId"] = userId
+		comment["text"] = text
+		comment["nickname"] = nickname
+
+		comments = append(comments, comment)
 	}
 
 	utils.SendPosRes(c, 200, gin.H{
@@ -27,5 +50,6 @@ func GetPost(c *gin.Context) {
 		"time": time,
 		"likes": likes,
 		"userId": userId,
+		"comments": comments,
 	})
 }

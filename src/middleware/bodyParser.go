@@ -16,21 +16,36 @@ func BodyParser(c *gin.Context) {
 			return
 		}
 
-		if c.Request.URL.Path == "/sign-up" {
-			parseBody.BodySignup(data, c)
-		} else if c.Request.URL.Path == "/login" {
-			parseBody.BodyLogin(data, c)
-		} else if c.Request.URL.Path == "/user/password/reset" {
-			parseBody.BodyResetPassword(data, c)
-		} else if c.Request.URL.Path == "/tweet" {
-			parseBody.BodyPost(data, c)
-		} else if c.Request.URL.Path == "/comment" {
-			parseBody.BodyComment(data, c)
-		} else if c.Request.URL.Path == "/user" && c.Request.Method == "PUT" {
-			parseBody.BodyEdit(data, c)
-		} else if c.Request.URL.Path == "/user/password" {
-			parseBody.BodyChangePassword(data, c)
-		}
+		switch {
+			case c.Request.URL.Path == "/sign-up":
+				parseBody.BodySignup(data, c)
+				
+				break
+			case c.Request.URL.Path == "/login":
+				parseBody.BodyLogin(data, c)
+				
+				break
+			case c.Request.URL.Path == "/user/password/reset":
+				parseBody.BodyResetPassword(data, c)
 
+				break
+			case c.Request.URL.Path == "/tweet":
+				parseBody.BodyPost(data, c)
+
+				break
+			case c.Request.URL.Path == "/comment":
+				parseBody.BodyComment(data, c)
+
+				break
+			case c.Request.URL.Path == "/user" && c.Request.Method == "PUT":
+				parseBody.BodyEdit(data, c)
+
+				break
+			case c.Request.URL.Path == "/user/password":
+				parseBody.BodyChangePassword(data, c)
+
+				break
+		}
+		
 		c.Next()
 }

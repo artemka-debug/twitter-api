@@ -36,6 +36,7 @@ func main() {
 	r.POST("/tweet", middleware.BodyParser, middleware.InputValidate, middleware.VerifyToken, api.Post)
 	r.GET("/tweet/:id", middleware.InputValidate, middleware.VerifyToken, api.GetPost)
 	r.GET("/tweets", middleware.InputValidate, middleware.VerifyToken, api.GetPosts)
+	r.PUT("/tweet/like/:id",  middleware.InputValidate, middleware.VerifyToken, api.LikeUnlikePost)
 
 	// COMMENT
 	r.POST("/comment", middleware.BodyParser, middleware.InputValidate, middleware.VerifyToken, api.AddComment)

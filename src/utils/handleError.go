@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func HandleError(errorForUser []string, err string, c *gin.Context, code int) {
+func HandleError(errorForUser interface{}, err string, c *gin.Context, code int) {
 	fmt.Println("ERROR Error:", err)
 	token := c.GetHeader("Authorization")
 	if token != "" {

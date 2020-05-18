@@ -4,12 +4,34 @@ import (
 	"github.com/artemka-debug/twitter-api/src/db"
 	"github.com/artemka-debug/twitter-api/src/utils"
 	"github.com/gin-gonic/gin"
+	"net/url"
 	"sort"
+	"strconv"
 )
 
 func GetPosts(c *gin.Context) {
+	test, errorParsing := url.ParseQuery(c.Request.URL.String())
+
+	if errorParsing != nil {
+		utils.HandleError([]string{"could not get tweets"}, errorParsing.Error(), c, 400)
+		return
+	}
+
+	if _, ok := test["climit"]; !ok {
+			utils.HandleError([]string{"could not get comments"}, "limit on comments was not provided", c, 400)
+			return
+	}
+
+	if _, ok := test["climit"]; !ok {
+			utils.HandleError([]string{"could not get comments"}, "limit on posts was not provided", c, 400)
+			return
+	}
+
+	tweetLimit, _ := strconv.Atoi(test["climit"][0])
+	comLimit, _ := strconv.Atoi(test["climit"][0])
+
 	var posts []map[string]interface{}
-	rows, errorGetting := db.DB.Query(`select id, nickname, title, time, text, likes, user_id from posts order by time`)
+	rows, errorGetting := db.DB.Query(`select id, nickname, title, time, text, likes, user_id from posts order by time limit ?`, tweetLimit)
 
 	if errorGetting != nil {
 		utils.HandleError([]string{"you don't have an account"}, errorGetting.Error(), c, 400)
@@ -44,7 +66,7 @@ func GetPosts(c *gin.Context) {
 		posts = append(posts, post)
 	}
 
-	rows, errorComments := db.DB.Query(`select user_id, text, nickname, post_id from comments order by post_id`)
+	rows, errorComments := db.DB.Query(`select user_id, text, nickname, post_id from comments order by post_id limit ?`, comLimit)
 
 	if errorComments != nil {
 		utils.HandleError([]string{"could not get comments"}, errorComments.Error(), c, 500)

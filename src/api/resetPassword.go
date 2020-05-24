@@ -21,7 +21,7 @@ func ResetPassword(c *gin.Context) {
 		return
 	}
 	newPass := utils.GeneratePassword()
-	errorSendingEmail := smtp.SendMail(env.SmtpHost+ ":587",
+	errorSendingEmail := smtp.SendMail(env.SmtpHost+":587",
 		smtp.PlainAuth("", env.Email, env.Password, env.SmtpHost),
 		env.Email, []string{body.Email}, []byte(fmt.Sprintf("Your new password is %s", newPass)))
 

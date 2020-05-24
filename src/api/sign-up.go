@@ -13,14 +13,14 @@ func SignUp(c *gin.Context) {
 	saltedBytes := []byte(body.Password)
 	hashedBytes, errorHashing := bcrypt.GenerateFromPassword(saltedBytes, bcrypt.DefaultCost)
 	if errorHashing != nil {
-		utils.HandleError([]string{"try again"}, errorHashing.Error(), c, 500)
+		utils.HandleError(utils.ErrorForUser{"password": "try again"}, errorHashing.Error(), c, 500)
 		return
 	}
 
 	var email string
 	errorQuerying := db.DB.QueryRow("select email from Users where email = ?", body.Email).Scan(&email)
 	if errorQuerying == nil {
-		utils.HandleError([]string{"you already have an account"}, "user is in db", c, 400)
+		utils.HandleError(utils.ErrorForUser{"email": "you already have an account"}, "user is in db", c, 400)
 		return
 	}
 
@@ -34,7 +34,7 @@ func SignUp(c *gin.Context) {
 	res, errorPushingUser := db.DB.Exec(`insert into Users (nickname, email, password, status)
 													values (?, ?, ?, ?)`, nickname, body.Email, string(hashedBytes), body.Status)
 	if errorPushingUser != nil {
-		utils.HandleError([]string{"could not add you to database, try again"}, errorPushingUser.Error(), c, 500)
+		utils.HandleError(utils.ErrorForUser{"email": "could not add you to database, try again"}, errorPushingUser.Error(), c, 500)
 		return
 	}
 	id, _ := res.LastInsertId()
@@ -42,7 +42,7 @@ func SignUp(c *gin.Context) {
 	token := utils.CreateToken(int(id))
 
 	utils.SendPosRes(c, 201, gin.H{
-		"token": token,
+		"token":   token,
 		"user_id": int(id),
 	})
 }

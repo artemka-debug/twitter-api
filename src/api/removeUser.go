@@ -22,7 +22,7 @@ func RemoveUser(c *gin.Context) {
 												where id = ?`, userId)
 
 	if errorDeletingUser != nil {
-		utils.HandleError([]string{"could not delete user, try again"}, errorDeletingUser.Error(), c,  403)
+		utils.HandleError([]string{"could not delete user, try again"}, errorDeletingUser.Error(), c, 403)
 	}
 
 	utils.SendPosRes(c, 200, gin.H{})

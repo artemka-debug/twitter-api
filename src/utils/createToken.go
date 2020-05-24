@@ -11,9 +11,7 @@ func CreateToken(id int) string {
 	now := time.Now()
 	pl := CustomPayload{
 		Payload: jwt.Payload{
-			ExpirationTime: jwt.NumericDate(now.Add(24 * 30 * 12 * time.Hour)),
-			NotBefore:      jwt.NumericDate(now.Add(30 * time.Minute)),
-			IssuedAt:       jwt.NumericDate(now),
+			IssuedAt: jwt.NumericDate(now),
 		},
 		Id: id,
 	}

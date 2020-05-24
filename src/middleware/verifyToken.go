@@ -17,9 +17,14 @@ func VerifyToken(c *gin.Context) {
 		c.Abort()
 		return
 	}
+	token := strings.Split(c.GetHeader("Authorization"), " ")
 
-	token := strings.Split(c.GetHeader("Authorization"), " ")[1]
-	_, err := jwt.Verify([]byte(token), secret.AppKey, &pl)
+	if len(token) < 2 {
+		utils.HandleError([]string{"token is not provided"}, "bearer auth token is not provided, please provide token", c, 400)
+		return
+	}
+
+	_, err := jwt.Verify([]byte(token[1]), secret.AppKey, &pl)
 
 	if err != nil {
 		utils.HandleError([]string{"try to re-login"}, err.Error(), c, 401)
@@ -29,5 +34,6 @@ func VerifyToken(c *gin.Context) {
 
 	fmt.Println("PAYLOAD ID", pl.Id)
 	c.Set("userId", pl.Id)
+	c.Set("token", token[1])
 	c.Next()
 }

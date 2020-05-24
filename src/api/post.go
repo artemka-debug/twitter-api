@@ -14,7 +14,7 @@ func Post(c *gin.Context) {
 	var nickname string
 	errorSelectingFromDb := db.DB.QueryRow(`select id, nickname from users where id = ?`, userId).Scan(&id, &nickname)
 
-	if errorSelectingFromDb != nil  {
+	if errorSelectingFromDb != nil {
 		utils.HandleError([]string{"you dont have an account, you need to sign up"}, errorSelectingFromDb.Error(), c, 400)
 		return
 	}
@@ -28,7 +28,7 @@ func Post(c *gin.Context) {
 
 	lastId, _ := res.LastInsertId()
 	utils.SendPosRes(c, 200, gin.H{
-		"token": strings.Split(c.GetHeader("Authorization"), " ")[1],
+		"token":   strings.Split(c.GetHeader("Authorization"), " ")[1],
 		"post_id": int(lastId),
 	})
 }

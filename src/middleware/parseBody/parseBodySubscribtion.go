@@ -6,8 +6,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func BodyComment(data []byte, c *gin.Context) {
-	var body utils.CommentSchema
+func BodySubscription(data []byte, c *gin.Context) {
+	var body utils.Subscription
 
 	errorDecoding := json.Unmarshal(data, &body)
 	defer c.Request.Body.Close()

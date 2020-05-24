@@ -6,10 +6,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func RemovePost(c *gin.Context)  {
+func RemovePost(c *gin.Context) {
 	id := c.Param("id")
 
-	_, errorDeleting :=  db.DB.Exec(`delete posts from posts
+	_, errorDeleting := db.DB.Exec(`delete posts from posts
 												left join liked_posts l on posts.id = l.post_id
 												left join comments c on posts.id = c.post_id
 											where posts.id = ?`, id)

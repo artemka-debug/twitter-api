@@ -1,8 +1,17 @@
 package utils
 
 import (
+	"github.com/SherClockHolmes/webpush-go"
 	"github.com/gbrlsnchs/jwt/v3"
 )
+
+type ErrorForUser map[string]interface{}
+
+type Subscription struct {
+	EndPoint       string       `json:"endpoint"`
+	ExpirationTime interface{}  `json:"expirationTime"`
+	Keys           webpush.Keys `json:"keys"`
+}
 
 type CommentSchema struct {
 	PostId int    `json:"post_id"`
@@ -11,7 +20,7 @@ type CommentSchema struct {
 
 type CustomPayload struct {
 	jwt.Payload
-	Id       int
+	Id int
 }
 
 type EditSchema struct {
@@ -20,8 +29,8 @@ type EditSchema struct {
 }
 
 type PostSchema struct {
-	Title  string `json:"title"`
-	Text   string `json:"text"`
+	Title string `json:"title"`
+	Text  string `json:"text"`
 }
 
 type LoginSchema struct {

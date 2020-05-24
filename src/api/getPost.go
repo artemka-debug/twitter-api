@@ -25,14 +25,14 @@ func GetPost(c *gin.Context) {
 
 	for res.Next() {
 		var (
-			userId int
-			text string
+			userId   int
+			text     string
 			nickname string
 		)
 		comment := make(map[string]interface{})
 
 		if err := res.Scan(&userId, &text, &nickname); err != nil {
-			utils.HandleError([]string{"could not get comments"}, err.Error(), c ,500)
+			utils.HandleError([]string{"could not get comments"}, err.Error(), c, 500)
 			return
 		}
 
@@ -45,11 +45,11 @@ func GetPost(c *gin.Context) {
 
 	utils.SendPosRes(c, 200, gin.H{
 		"nickname": nickname,
-		"title": title,
-		"text": text,
-		"time": time,
-		"likes": likes,
-		"userId": userId,
+		"title":    title,
+		"text":     text,
+		"time":     time,
+		"likes":    likes,
+		"userId":   userId,
 		"comments": comments,
 	})
 }

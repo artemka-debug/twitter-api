@@ -19,4 +19,3 @@ func BodyResetPassword(data []byte, c *gin.Context) {
 
 	c.Set("body", body)
 }
-

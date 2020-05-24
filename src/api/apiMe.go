@@ -1,29 +1,31 @@
 package api
 
 import (
-	"github.com/artemka-debug/twitter-api/src/secret"
+	"github.com/artemka-debug/twitter-api/src/db"
 	"github.com/artemka-debug/twitter-api/src/utils"
-	"github.com/gbrlsnchs/jwt/v3"
 	"github.com/gin-gonic/gin"
-	"strings"
 )
 
 func Me(c *gin.Context) {
-	if c.GetHeader("Authorization") == "" {
-		utils.HandleError([]string{"token is not provided"}, "auth token is not provided, please provide token", c, 401)
-		return
-	}
+	token := c.Keys["token"]
+	userId := c.Keys["userId"]
+	userInfo := struct {
+		Id       int    `json:"id"`
+		Nickname string `json:"nickname"`
+		Email    string `json:"email"`
+		Status   string `json:"status"`
+	}{}
 
-	var pl utils.CustomPayload
-	token := strings.Split(c.GetHeader("Authorization"), " ")[1]
-	_, err := jwt.Verify([]byte(token), secret.AppKey, &pl)
+	errorGettingUserInfo := db.DB.QueryRow(`select id, nickname, email, status from users where id = ?`, userId).Scan(
+		&userInfo.Id, &userInfo.Nickname, &userInfo.Email, &userInfo.Status)
 
-	if err != nil {
-		utils.HandleError([]string{"you have trouble with trouble something(needs to be good error), try to re-login into your account"}, err.Error(), c, 401)
+	if errorGettingUserInfo != nil {
+		utils.HandleError([]string{"no users found"}, errorGettingUserInfo.Error(), c, 400)
 		return
 	}
 
 	utils.SendPosRes(c, 200, gin.H{
 		"token": token,
+		"user":  userInfo,
 	})
 }

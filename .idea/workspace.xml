@@ -2,7 +2,39 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bce589b9-e12a-4f33-a483-44bc72e82353" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/middleware/parseBody/parseBodySubscribtion.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gin-bin" beforeDir="false" afterPath="$PROJECT_DIR$/gin-bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/addComment.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/addComment.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/apiMe.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/apiMe.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/getPost.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/getPost.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/getPosts.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/getPosts.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/getUser.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/getUser.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/likeUnlikePost.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/likeUnlikePost.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/login.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/login.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/post.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/post.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/removePost.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/removePost.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/removeUser.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/removeUser.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/resetPassword.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/resetPassword.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/sign-up.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/sign-up.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/env/envVars.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/env/envVars.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/middleware/bodyParser.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/bodyParser.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/middleware/parseBody/parseComment.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/parseBody/parseComment.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/middleware/parseBody/parseLogin.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/parseBody/parseLogin.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/middleware/parseBody/parsePost.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/parseBody/parsePost.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/middleware/parseBody/parseResetPassword.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/parseBody/parseResetPassword.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/middleware/parseBody/parseSignup.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/parseBody/parseSignup.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/middleware/setHeaders.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/setHeaders.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/middleware/validate.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/validate.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/middleware/verifyToken.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/verifyToken.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/secret/secret.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/secret/secret.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/createToken.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/createToken.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/handleError.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/handleError.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/types.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/types.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,6 +44,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="tsconfig.json" />
+        <option value="JavaScript File" />
         <option value="Go File" />
       </list>
     </option>
@@ -88,10 +122,10 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="520" y="290" key="#Go_Modules/0.0.1440.900@0.0.1440.900" timestamp="1588973167752" />
-    <state x="75" y="281" key="#SQL_Dialects" timestamp="1589566483768">
+    <state x="75" y="281" key="#SQL_Dialects" timestamp="1590072114270">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="75" y="281" key="#SQL_Dialects/0.0.1440.900@0.0.1440.900" timestamp="1589566483768" />
+    <state x="75" y="281" key="#SQL_Dialects/0.0.1440.900@0.0.1440.900" timestamp="1590072114270" />
     <state x="320" y="115" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1589291546890">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -116,6 +150,18 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="616" y="389" key="com.intellij.database.run.ParametersPanel.Standalone/0.0.1440.900@0.0.1440.900" timestamp="1589567661475" />
+    <state x="590" y="227" width="486" height="403" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog" timestamp="1590249965136">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="590" y="227" width="486" height="403" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/0.0.1440.900@0.0.1440.900" timestamp="1590249965136" />
+    <state x="421" y="22" width="598" height="855" key="find.popup" timestamp="1590249829781">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="421" y="22" width="598" height="855" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1590249829781" />
+    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup" timestamp="1590169017406">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1590169017406" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/twitter_api$me_test_go.out" NAME="me_test.go Coverage Results" MODIFIED="1589290516692" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

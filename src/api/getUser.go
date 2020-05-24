@@ -20,7 +20,7 @@ func GetUser(c *gin.Context) {
 
 	utils.SendPosRes(c, 200, gin.H{
 		"nickname": nickname,
-		"status": status,
-		"email": email,
+		"status":   status,
+		"email":    email,
 	})
 }

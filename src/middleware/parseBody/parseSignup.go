@@ -19,4 +19,3 @@ func BodySignup(data []byte, c *gin.Context) {
 
 	c.Set("body", body)
 }
-

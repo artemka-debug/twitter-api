@@ -18,13 +18,13 @@ func GetPosts(c *gin.Context) {
 	}
 
 	if _, ok := test["climit"]; !ok {
-			utils.HandleError([]string{"could not get comments"}, "limit on comments was not provided", c, 400)
-			return
+		utils.HandleError([]string{"could not get comments"}, "limit on comments was not provided", c, 400)
+		return
 	}
 
 	if _, ok := test["climit"]; !ok {
-			utils.HandleError([]string{"could not get comments"}, "limit on posts was not provided", c, 400)
-			return
+		utils.HandleError([]string{"could not get comments"}, "limit on posts was not provided", c, 400)
+		return
 	}
 
 	tweetLimit, _ := strconv.Atoi(test["climit"][0])
@@ -99,7 +99,6 @@ func GetPosts(c *gin.Context) {
 	sort.Slice(posts, func(i, j int) bool {
 		return posts[i]["postId"].(int) < posts[j]["postId"].(int)
 	})
-
 
 	for i := 0; i < len(posts); i++ {
 		c := make([]map[string]interface{}, 0)

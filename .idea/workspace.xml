@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bce589b9-e12a-4f33-a483-44bc72e82353" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/db/db-init.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/db/db-init.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

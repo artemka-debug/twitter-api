@@ -1,6 +1,7 @@
 package api
 
 import (
+	"fmt"
 	"github.com/artemka-debug/twitter-api/src/db"
 	"github.com/artemka-debug/twitter-api/src/utils"
 	"github.com/gin-gonic/gin"
@@ -32,6 +33,7 @@ func GetPosts(c *gin.Context) {
 
 	var posts []map[string]interface{}
 	rows, errorGetting := db.DB.Query(`select id, nickname, title, time, text, likes, user_id from posts order by time limit ?`, tweetLimit)
+	defer rows.Close()
 
 	if errorGetting != nil {
 		utils.HandleError([]string{"you don't have an account"}, errorGetting.Error(), c, 400)
@@ -66,7 +68,8 @@ func GetPosts(c *gin.Context) {
 		posts = append(posts, post)
 	}
 
-	rows, errorComments := db.DB.Query(`select user_id, text, nickname, post_id from comments order by post_id limit ?`, comLimit)
+	rows, errorComments := db.DB.Query(`select id, user_id, text, nickname, post_id from comments order by post_id limit ?`, comLimit)
+	defer rows.Close()
 
 	if errorComments != nil {
 		utils.HandleError([]string{"could not get comments"}, errorComments.Error(), c, 500)
@@ -80,10 +83,11 @@ func GetPosts(c *gin.Context) {
 			text     string
 			nickname string
 			postId   int
+			id       int
 		)
 		comment := make(map[string]interface{})
 
-		if err := rows.Scan(&userId, &text, &nickname, &postId); err != nil {
+		if err := rows.Scan(&id, &userId, &text, &nickname, &postId); err != nil {
 			utils.HandleError([]string{"could not get comments"}, err.Error(), c, 500)
 			return
 		}
@@ -92,6 +96,7 @@ func GetPosts(c *gin.Context) {
 		comment["text"] = text
 		comment["nickname"] = nickname
 		comment["postId"] = postId
+		comment["id"] = id
 
 		comments = append(comments, comment)
 	}
@@ -112,6 +117,12 @@ func GetPosts(c *gin.Context) {
 		posts[i]["comments"] = c
 
 	}
+
+	if len(posts) == 0 {
+		posts = make([]map[string]interface{}, 0)
+	}
+
+	fmt.Println(posts)
 
 	utils.SendPosRes(c, 200, gin.H{
 		"posts": posts,

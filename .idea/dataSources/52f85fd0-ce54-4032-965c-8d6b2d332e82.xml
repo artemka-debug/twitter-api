@@ -717,130 +717,131 @@
     <table id="224" parent="2" name="comments"/>
     <table id="225" parent="2" name="liked_posts"/>
     <table id="226" parent="2" name="posts"/>
-    <table id="227" parent="2" name="users"/>
-    <column id="228" parent="224" name="id">
+    <table id="227" parent="2" name="subscription"/>
+    <table id="228" parent="2" name="users"/>
+    <column id="229" parent="224" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="229" parent="224" name="user_id">
+    <column id="230" parent="224" name="user_id">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="230" parent="224" name="post_id">
+    <column id="231" parent="224" name="post_id">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="231" parent="224" name="text">
+    <column id="232" parent="224" name="text">
       <Position>4</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="232" parent="224" name="nickname">
+    <column id="233" parent="224" name="nickname">
       <Position>5</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="233" parent="224" name="comments_ibfk_1">
+    <index id="234" parent="224" name="comments_ibfk_1">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="234" parent="224" name="comments_ibfk_2">
+    <index id="235" parent="224" name="comments_ibfk_2">
       <ColNames>post_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="235" parent="224" name="PRIMARY">
+    <key id="236" parent="224" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="236" parent="224" name="comments_ibfk_1">
+    <foreign-key id="237" parent="224" name="comments_ibfk_1">
       <ColNames>user_id</ColNames>
       <RefTableName>users</RefTableName>
       <RefColNames>id</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="237" parent="224" name="comments_ibfk_2">
+    <foreign-key id="238" parent="224" name="comments_ibfk_2">
       <ColNames>post_id</ColNames>
       <RefTableName>posts</RefTableName>
       <RefColNames>id</RefColNames>
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="238" parent="225" name="id">
+    <column id="239" parent="225" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="239" parent="225" name="user_id">
+    <column id="240" parent="225" name="user_id">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="240" parent="225" name="post_id">
+    <column id="241" parent="225" name="post_id">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="241" parent="225" name="liked_posts_ibfk_1">
+    <index id="242" parent="225" name="liked_posts_ibfk_1">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="242" parent="225" name="liked_posts_ibfk_2">
+    <index id="243" parent="225" name="liked_posts_ibfk_2">
       <ColNames>post_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="243" parent="225" name="PRIMARY">
+    <key id="244" parent="225" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="244" parent="225" name="liked_posts_ibfk_1">
+    <foreign-key id="245" parent="225" name="liked_posts_ibfk_1">
       <ColNames>user_id</ColNames>
       <RefTableName>users</RefTableName>
       <RefColNames>id</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="245" parent="225" name="liked_posts_ibfk_2">
+    <foreign-key id="246" parent="225" name="liked_posts_ibfk_2">
       <ColNames>post_id</ColNames>
       <RefTableName>posts</RefTableName>
       <RefColNames>id</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="246" parent="226" name="id">
+    <column id="247" parent="226" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="247" parent="226" name="user_id">
+    <column id="248" parent="226" name="user_id">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="248" parent="226" name="text">
+    <column id="249" parent="226" name="text">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="249" parent="226" name="title">
+    <column id="250" parent="226" name="title">
       <Position>4</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="250" parent="226" name="nickname">
+    <column id="251" parent="226" name="nickname">
       <Position>5</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="251" parent="226" name="time">
+    <column id="252" parent="226" name="time">
       <Position>6</Position>
       <DataType>timestamp|0s</DataType>
       <NotNull>1</NotNull>
@@ -848,54 +849,96 @@
       <ColumnKind>normal</ColumnKind>
       <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
     </column>
-    <column id="252" parent="226" name="likes">
+    <column id="253" parent="226" name="likes">
       <Position>7</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="253" parent="226" name="posts_ibfk_1">
+    <index id="254" parent="226" name="posts_ibfk_1">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="254" parent="226" name="PRIMARY">
+    <key id="255" parent="226" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="255" parent="226" name="posts_ibfk_1">
+    <foreign-key id="256" parent="226" name="posts_ibfk_1">
       <ColNames>user_id</ColNames>
       <RefTableName>users</RefTableName>
       <RefColNames>id</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="256" parent="227" name="id">
+    <column id="257" parent="227" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="257" parent="227" name="nickname">
+    <column id="258" parent="227" name="userId">
+      <Position>2</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="259" parent="227" name="endpoint">
+      <Position>3</Position>
+      <DataType>varchar(200)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="260" parent="227" name="auth">
+      <Position>4</Position>
+      <DataType>varchar(200)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="261" parent="227" name="p256dh">
+      <Position>5</Position>
+      <DataType>varchar(200)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="262" parent="227" name="sub_user">
+      <ColNames>userId</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="263" parent="227" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="264" parent="227" name="sub_user">
+      <ColNames>userId</ColNames>
+      <RefTableName>users</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="265" parent="228" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="266" parent="228" name="nickname">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="258" parent="227" name="email">
+    <column id="267" parent="228" name="email">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="259" parent="227" name="password">
+    <column id="268" parent="228" name="password">
       <Position>4</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="260" parent="227" name="status">
+    <column id="269" parent="228" name="status">
       <Position>5</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="261" parent="227" name="PRIMARY">
+    <key id="270" parent="228" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>

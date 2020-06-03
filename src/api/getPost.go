@@ -16,7 +16,8 @@ func GetPost(c *gin.Context) {
 	var comments []map[string]interface{}
 
 	errorGetting := db.DB.QueryRow(`select nickname, title, time, text, likes, user_id from posts where id = ?`, id).Scan(&nickname, &title, &time, &text, &likes, &userId)
-	res, err := db.DB.Query(`select user_id, text, nickname from comments where post_id = ?`, id)
+	res, err := db.DB.Query(`select id, user_id, text, nickname, post_id from comments where post_id = ?`, id)
+	defer res.Close()
 
 	if errorGetting != nil || err != nil {
 		utils.HandleError([]string{"this post is no longer available"}, errorGetting.Error(), c, 400)
@@ -28,10 +29,12 @@ func GetPost(c *gin.Context) {
 			userId   int
 			text     string
 			nickname string
+			id       int
+			postId   int
 		)
 		comment := make(map[string]interface{})
 
-		if err := res.Scan(&userId, &text, &nickname); err != nil {
+		if err := res.Scan(&id, &userId, &text, &nickname, &postId); err != nil {
 			utils.HandleError([]string{"could not get comments"}, err.Error(), c, 500)
 			return
 		}
@@ -39,6 +42,8 @@ func GetPost(c *gin.Context) {
 		comment["userId"] = userId
 		comment["text"] = text
 		comment["nickname"] = nickname
+		comment["id"] = id
+		comment["postId"] = postId
 
 		comments = append(comments, comment)
 	}

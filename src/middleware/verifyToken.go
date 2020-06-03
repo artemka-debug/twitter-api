@@ -17,10 +17,13 @@ func VerifyToken(c *gin.Context) {
 		c.Abort()
 		return
 	}
+	fmt.Println(c.GetHeader("Authorization"))
+
 	token := strings.Split(c.GetHeader("Authorization"), " ")
 
 	if len(token) < 2 {
 		utils.HandleError([]string{"token is not provided"}, "bearer auth token is not provided, please provide token", c, 400)
+		c.Abort()
 		return
 	}
 

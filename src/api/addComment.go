@@ -1,7 +1,6 @@
 package api
 
 import (
-	"fmt"
 	"github.com/artemka-debug/twitter-api/src/db"
 	"github.com/artemka-debug/twitter-api/src/utils"
 	"github.com/gin-gonic/gin"
@@ -19,15 +18,21 @@ func AddComment(c *gin.Context) {
 		return
 	}
 
-	fmt.Println(body.Text, userId, body.PostId, nickname)
-
-	_, errorInserting := db.DB.Exec(`insert into comments(text, user_id, post_id, nickname)
+	res, errorInserting := db.DB.Exec(`insert into comments(text, user_id, post_id, nickname)
 											values (?, ?, ?, ?)`, body.Text, userId, body.PostId, nickname)
 
 	if errorInserting != nil {
-		utils.HandleError([]string{"could not add your comment, try again"}, errorInserting.Error(), c, 500)
+		utils.HandleError(utils.ErrorForUser{"comment": "could not add your comment, try again"}, errorInserting.Error(), c, 500)
 		return
 	}
 
-	utils.SendPosRes(c, 201, gin.H{})
+	commentId, _ := res.LastInsertId()
+
+	utils.SendPosRes(c, 201, gin.H{
+		"id": commentId,
+		"text": body.Text,
+		"nickname": nickname,
+		"userId": userId,
+		"postId": body.PostId,
+	})
 }

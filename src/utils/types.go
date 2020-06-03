@@ -7,15 +7,28 @@ import (
 
 type ErrorForUser map[string]interface{}
 
+type subscription struct {
+	Sub struct {
+		EndPoint       string       `json:"endpoint"`
+		ExpirationTime interface{}  `json:"expirationTime"`
+		Keys           webpush.Keys `json:"keys"`
+	} `json:"sub"`
+	UserId int `json:"user_id"`
+}
+
 type Subscription struct {
-	EndPoint       string       `json:"endpoint"`
-	ExpirationTime interface{}  `json:"expirationTime"`
-	Keys           webpush.Keys `json:"keys"`
+	Body subscription `json:"body"`
 }
 
 type CommentSchema struct {
 	PostId int    `json:"post_id"`
 	Text   string `json:"text"`
+}
+
+type Users struct {
+	Status   string `json:"status"`
+	Nickname string `json:"nickname"`
+	Id       int    `json:"id"`
 }
 
 type CustomPayload struct {

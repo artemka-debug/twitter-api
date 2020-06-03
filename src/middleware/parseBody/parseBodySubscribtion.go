@@ -7,7 +7,7 @@ import (
 )
 
 func BodySubscription(data []byte, c *gin.Context) {
-	var body utils.Subscription
+	var body interface{}
 
 	errorDecoding := json.Unmarshal(data, &body)
 	defer c.Request.Body.Close()

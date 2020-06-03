@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"errors"
+	"fmt"
 	"github.com/artemka-debug/twitter-api/src/utils"
 	"github.com/gin-gonic/gin"
 	validation "github.com/go-ozzo/ozzo-validation"
@@ -39,6 +40,7 @@ func InputValidate(c *gin.Context) {
 	case c.Request.URL.Path == "/tweet":
 		fields := c.Keys["body"].(utils.PostSchema)
 
+		fmt.Println(fields)
 		err = validation.ValidateStruct(&fields,
 			validation.Field(&fields.Title, validation.Required, validation.Match(regexp.MustCompile(`[a-z_\-]{3,40}`))),
 			validation.Field(&fields.Text, validation.Required, validation.Length(3, 255)))

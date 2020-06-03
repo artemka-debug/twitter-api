@@ -10,10 +10,10 @@ import (
 func Login(c *gin.Context) {
 	body := c.Keys["body"].(utils.LoginSchema)
 
-	var password string
+	var password, nickname, status string
 	var id int
 
-	errorSelectingFromDb := db.DB.QueryRow(`select id, password from users where email = ?`, body.Email).Scan(&id, &password)
+	errorSelectingFromDb := db.DB.QueryRow(`select id, password, nickname, status from users where email = ?`, body.Email).Scan(&id, &password, &nickname, &status)
 
 	if errorSelectingFromDb != nil {
 		utils.HandleError(utils.ErrorForUser{"email": "you dont have an account, you need to sign up"}, errorSelectingFromDb.Error(), c, 400)
@@ -36,5 +36,7 @@ func Login(c *gin.Context) {
 	utils.SendPosRes(c, 200, gin.H{
 		"token":   token,
 		"user_id": id,
+		"nickname": nickname,
+		"status": status,
 	})
 }

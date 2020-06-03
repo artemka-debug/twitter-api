@@ -2,38 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bce589b9-e12a-4f33-a483-44bc72e82353" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/middleware/parseBody/parseBodySubscribtion.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/api/GetPostsByUser.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/api/findUser.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/api/subscribeToNotifications.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/sendNotification.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/52f85fd0-ce54-4032-965c-8d6b2d332e82.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/52f85fd0-ce54-4032-965c-8d6b2d332e82.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gin-bin" beforeDir="false" afterPath="$PROJECT_DIR$/gin-bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/addComment.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/addComment.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/apiMe.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/apiMe.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/edit.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/edit.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/getPost.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/getPost.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/getPosts.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/getPosts.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/getUser.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/getUser.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/likeUnlikePost.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/likeUnlikePost.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/login.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/login.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/post.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/post.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/removePost.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/removePost.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/removeUser.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/removeUser.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/resetPassword.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/resetPassword.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/sign-up.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/sign-up.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/env/envVars.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/env/envVars.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/middleware/bodyParser.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/bodyParser.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/middleware/parseBody/parseComment.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/parseBody/parseComment.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/middleware/parseBody/parseLogin.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/parseBody/parseLogin.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/middleware/parseBody/parsePost.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/parseBody/parsePost.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/middleware/parseBody/parseResetPassword.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/parseBody/parseResetPassword.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/middleware/parseBody/parseSignup.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/parseBody/parseSignup.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/middleware/setHeaders.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/setHeaders.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/middleware/parseBody/parseBodySubscribtion.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/parseBody/parseBodySubscribtion.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/middleware/validate.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/validate.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/middleware/verifyToken.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/verifyToken.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/secret/secret.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/secret/secret.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/createToken.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/createToken.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/handleError.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/handleError.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/types.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/types.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -67,6 +54,7 @@
     <property name="DefaultGoTemplateProperty" value="Go File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
@@ -122,38 +110,45 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="520" y="290" key="#Go_Modules/0.0.1440.900@0.0.1440.900" timestamp="1588973167752" />
-    <state x="75" y="281" key="#SQL_Dialects" timestamp="1590072114270">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state x="75" y="297" key="#SQL_Dialects" timestamp="1591109053082">
+      <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="75" y="281" key="#SQL_Dialects/0.0.1440.900@0.0.1440.900" timestamp="1590072114270" />
+    <state x="75" y="297" key="#SQL_Dialects/0.23.1440.877@0.23.1440.877" timestamp="1591109053082" />
     <state x="320" y="115" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1589291546890">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="320" y="115" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1440.900@0.0.1440.900" timestamp="1589291546890" />
-    <state width="958" height="260" key="GridCell.Tab.0.bottom" timestamp="1589789168814">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="958" height="227" key="GridCell.Tab.0.bottom" timestamp="1591109604936">
+      <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state width="958" height="260" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1589789168814" />
-    <state width="958" height="260" key="GridCell.Tab.0.center" timestamp="1589789168813">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="958" height="227" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1591109604936" />
+    <state width="958" height="227" key="GridCell.Tab.0.center" timestamp="1591109604936">
+      <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state width="958" height="260" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1589789168813" />
-    <state width="958" height="260" key="GridCell.Tab.0.left" timestamp="1589789168812">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="958" height="227" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1591109604936" />
+    <state width="958" height="227" key="GridCell.Tab.0.left" timestamp="1591109604935">
+      <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state width="958" height="260" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1589789168811" />
-    <state width="958" height="260" key="GridCell.Tab.0.right" timestamp="1589789168814">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="958" height="227" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1591109604935" />
+    <state width="958" height="227" key="GridCell.Tab.0.right" timestamp="1591109604936">
+      <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state width="958" height="260" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1589789168814" />
-    <state x="616" y="389" key="com.intellij.database.run.ParametersPanel.Standalone" timestamp="1589567661475">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="958" height="227" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1591109604936" />
+    <state x="616" y="402" key="com.intellij.database.run.ParametersPanel.Standalone" timestamp="1590675111437">
+      <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="616" y="389" key="com.intellij.database.run.ParametersPanel.Standalone/0.0.1440.900@0.0.1440.900" timestamp="1589567661475" />
-    <state x="590" y="227" width="486" height="403" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog" timestamp="1590249965136">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state x="616" y="402" key="com.intellij.database.run.ParametersPanel.Standalone/0.23.1440.877@0.23.1440.877" timestamp="1590675111437" />
+    <state x="590" y="244" width="486" height="403" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog" timestamp="1590423917573">
+      <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="590" y="227" width="486" height="403" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/0.0.1440.900@0.0.1440.900" timestamp="1590249965136" />
+    <state x="590" y="244" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/0.23.1440.877@0.23.1440.877" timestamp="1590423917573" />
     <state x="421" y="22" width="598" height="855" key="find.popup" timestamp="1590249829781">
       <screen x="0" y="0" width="1440" height="900" />
     </state>

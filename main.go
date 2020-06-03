@@ -1,12 +1,8 @@
 package main
 
 import (
-	"github.com/SherClockHolmes/webpush-go"
 	"github.com/artemka-debug/twitter-api/src/api"
-	"github.com/artemka-debug/twitter-api/src/env"
 	"github.com/artemka-debug/twitter-api/src/middleware"
-	"github.com/artemka-debug/twitter-api/src/utils"
-
 	//"github.com/artemka-debug/twitter-api/src/utils"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
@@ -58,47 +54,29 @@ func main() {
 	r.Use(middleware.SetHeaders)
 
 	r.GET("/me", middleware.VerifyToken, api.Me)
-	r.POST("/notification/subscribe", middleware.BodyParser, func(c *gin.Context) {
-		body := c.Keys["body"].(utils.Subscription)
-		subscription := webpush.Subscription{
-			Endpoint: body.EndPoint,
-			Keys:     body.Keys,
-		}
+	r.POST("/notification/subscribe", middleware.BodyParser, middleware.VerifyToken, api.SubscribeToNotifications)
 
-		res, err := webpush.SendNotification([]byte("Test"), &subscription, &webpush.Options{
-			Subscriber:      "dovgopoly000@gmail.com",
-			VAPIDPublicKey:  env.VapidPublicKey,
-			VAPIDPrivateKey: env.VapidPrivateKey,
-			TTL:             60,
-		})
-
-		fmt.Println(res)
-
-
-		if err != nil {
-			fmt.Println(err)
-		}
-	})
-
-	// REGISTRATION
+	//// REGISTRATION
 	r.POST("/sign-up", middleware.BodyParser, middleware.InputValidate, api.SignUp)
 	r.POST("/login", middleware.BodyParser, middleware.InputValidate, api.Login)
 
-	// USER
+	//// USER
 	r.DELETE("/user", middleware.InputValidate, middleware.VerifyToken, api.RemoveUser)
 	r.PUT("/user", middleware.BodyParser, middleware.InputValidate, middleware.VerifyToken, api.Edit)
 	r.PUT("/user/password", middleware.BodyParser, middleware.InputValidate, middleware.VerifyToken, api.ChangePassword)
 	r.PUT("/user/password/reset", middleware.BodyParser, middleware.InputValidate, api.ResetPassword)
 	r.GET("/user/:id", middleware.InputValidate, middleware.VerifyToken, api.GetUser)
+	r.GET("/users", middleware.VerifyToken, api.FindUser)
 
-	// TWEET
-	r.DELETE("/tweet/:id", middleware.BodyParser, middleware.InputValidate, middleware.VerifyToken, api.RemovePost)
+	//// TWEET
+	r.DELETE("/tweet/:id", middleware.InputValidate, middleware.VerifyToken, api.RemovePost)
 	r.POST("/tweet", middleware.BodyParser, middleware.InputValidate, middleware.VerifyToken, api.Post)
-	r.GET("/tweet/:id", middleware.InputValidate, middleware.VerifyToken, api.GetPost)
-	r.GET("/tweets", middleware.InputValidate, middleware.VerifyToken, api.GetPosts)
+	r.GET("/tweet/:id", middleware.VerifyToken, api.GetPost)
+	r.GET("/tweets", middleware.VerifyToken, api.GetPosts)
+	r.GET("/tweets/user/:id", middleware.VerifyToken, api.GetPostsByUser)
 	r.PUT("/tweet/like/:id", middleware.InputValidate, middleware.VerifyToken, api.LikeUnlikePost)
 
-	// COMMENT
+	//// COMMENT
 	r.POST("/comment", middleware.BodyParser, middleware.InputValidate, middleware.VerifyToken, api.AddComment)
 
 	errorListening := r.Run(fmt.Sprintf(":%s", PORT))

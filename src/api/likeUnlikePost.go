@@ -37,6 +37,8 @@ func LikeUnlikePost(c *gin.Context) {
 			utils.HandleError([]string{"could not like post"}, errorInserting.Error(), c, 500)
 			return
 		}
+
+		utils.SendNotification(userIdPost)
 	} else {
 		//unlike tweet
 		like = -1

@@ -2,26 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bce589b9-e12a-4f33-a483-44bc72e82353" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/GetPostsByUser.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/findUser.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/subscribeToNotifications.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/sendNotification.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/52f85fd0-ce54-4032-965c-8d6b2d332e82.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/52f85fd0-ce54-4032-965c-8d6b2d332e82.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/addComment.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/addComment.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/edit.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/edit.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/getPost.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/getPost.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/getPosts.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/getPosts.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/likeUnlikePost.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/likeUnlikePost.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/login.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/login.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/sign-up.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/sign-up.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/middleware/parseBody/parseBodySubscribtion.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/parseBody/parseBodySubscribtion.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/middleware/validate.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/validate.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/middleware/verifyToken.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/verifyToken.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/types.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/types.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/db/db-init.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/db/db-init.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

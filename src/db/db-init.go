@@ -8,5 +8,5 @@ import (
 )
 
 var (
-	DB, _ = sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s)/%s", env.MysqlUsername, env.MysqlPassword, env.MysqlHost, env.MysqlDatabase))
+	DB, _ = sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(mysql:3306)/%s", env.MysqlUsername, env.MysqlPassword, env.MysqlDatabase))
 )

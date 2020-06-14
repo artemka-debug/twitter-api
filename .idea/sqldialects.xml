@@ -2,6 +2,7 @@
 <project version="4">
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/src/api/GetPostsByUser.go" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/api/GetPostsCount.go" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/api/addComment.go" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/api/apiMe.go" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/api/edit.go" dialect="MySQL" />
@@ -9,6 +10,7 @@
     <file url="file://$PROJECT_DIR$/src/api/getPost.go" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/api/getPosts.go" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/api/getUser.go" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/api/googleAuth.go" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/api/likeUnlikePost.go" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/api/login.go" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/api/post.go" dialect="MySQL" />

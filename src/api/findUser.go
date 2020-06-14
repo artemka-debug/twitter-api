@@ -37,7 +37,7 @@ func FindUser(c *gin.Context) {
 	for rows.Next() {
 		var user utils.Users
 
-		if err := rows.Scan(&user.Id, &user.Status, &user.Nickname); err != nil {
+		if err := rows.Scan(&user.Id, &user.Nickname, &user.Status); err != nil {
 			utils.HandleError([]string{"could not get all users"}, err.Error(), c, 500)
 			return
 		}

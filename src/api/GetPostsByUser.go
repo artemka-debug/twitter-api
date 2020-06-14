@@ -47,7 +47,7 @@ func GetPostsByUser(c *gin.Context) {
 
 		posts = append(posts, post)
 
-		r, errorComments := db.DB.Query(`select id, user_id, text, nickname, post_id from comments where post_id = ?`, post["postId"])
+		r, errorComments := db.DB.Query(`select id, user_id, text, nickname, post_id from comments where post_id = ? order by time desc`, post["postId"])
 
 		if errorComments != nil {
 			utils.HandleError([]string{"could not get comments"}, errorComments.Error(), c, 500)

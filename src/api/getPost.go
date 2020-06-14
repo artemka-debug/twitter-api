@@ -16,7 +16,7 @@ func GetPost(c *gin.Context) {
 	var comments []map[string]interface{}
 
 	errorGetting := db.DB.QueryRow(`select nickname, title, time, text, likes, user_id from posts where id = ?`, id).Scan(&nickname, &title, &time, &text, &likes, &userId)
-	res, err := db.DB.Query(`select id, user_id, text, nickname, post_id from comments where post_id = ?`, id)
+	res, err := db.DB.Query(`select id, user_id, text, nickname, post_id from comments where post_id = ? order by time desc`, id)
 	defer res.Close()
 
 	if errorGetting != nil || err != nil {
@@ -48,6 +48,10 @@ func GetPost(c *gin.Context) {
 		comments = append(comments, comment)
 	}
 
+	if len(comments) == 0 {
+		comments = make([]map[string]interface{}, 0)
+	}
+
 	utils.SendPosRes(c, 200, gin.H{
 		"nickname": nickname,
 		"title":    title,
@@ -56,5 +60,6 @@ func GetPost(c *gin.Context) {
 		"likes":    likes,
 		"userId":   userId,
 		"comments": comments,
+		"postId": id,
 	})
 }

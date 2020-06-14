@@ -28,8 +28,9 @@ func Edit(c *gin.Context) {
                                           set P.nickname = ?,
                                               C.nickname = ?,
                                               C.nickname = ?,
+                                              users.nickname = ?,
                                               status = ?
-                                          where Users.id = ?`, body.Nickname, body.Nickname, body.Nickname, body.Status, userId)
+                                          where Users.id = ?`, body.Nickname, body.Nickname, body.Nickname, body.Nickname, body.Status, userId)
 	if errorUpdating != nil {
 		utils.HandleError([]string{"cannot edit your profile"}, errorUpdating.Error(), c, 500)
 		return

@@ -1,12 +1,10 @@
 package middleware
 
 import (
-	"errors"
 	"fmt"
 	"github.com/artemka-debug/twitter-api/src/utils"
 	"github.com/gin-gonic/gin"
 	validation "github.com/go-ozzo/ozzo-validation"
-	"regexp"
 	"strings"
 )
 
@@ -18,9 +16,9 @@ func InputValidate(c *gin.Context) {
 		fields := c.Keys["body"].(utils.SignupSchema)
 
 		err = validation.ValidateStruct(&fields,
-			validation.Field(&fields.Email, validation.Required, validation.Match(regexp.MustCompile(`^[A-Za-z0-9._%+-]+@(?:[A-Za-z40-9-]+\.)+[A-Za-z]{2,10}$`))),
-			validation.Field(&fields.Password, validation.Required, validation.Match(regexp.MustCompile(`\w{6,24}`))),
-			validation.Field(&fields.Nickname, validation.Match(regexp.MustCompile(`[a-z1-9_'\-]{3,40}`))),
+			validation.Field(&fields.Email, validation.Required, validation.By(utils.ValidateEmail)),
+			validation.Field(&fields.Password, validation.Required, validation.By(utils.ValidatePassword)),
+			validation.Field(&fields.Nickname, validation.Length(3, 40), validation.By(utils.ValidateNickname)),
 			validation.Field(&fields.Status, validation.Length(0, 150)))
 
 		break
@@ -28,22 +26,22 @@ func InputValidate(c *gin.Context) {
 		fields := c.Keys["body"].(utils.LoginSchema)
 
 		err = validation.ValidateStruct(&fields,
-			validation.Field(&fields.Email, validation.Required, validation.Match(regexp.MustCompile(`^[A-Za-z0-9._%+-]+@(?:[A-Za-z40-9-]+\.)+[A-Za-z]{2,10}$`))),
-			validation.Field(&fields.Password, validation.Required, validation.Match(regexp.MustCompile(`\w{6,24}`))))
+			validation.Field(&fields.Email, validation.Required, validation.By(utils.ValidateEmail)),
+			validation.Field(&fields.Password, validation.Required, validation.By(utils.ValidatePassword)))
 
 		break
 	case c.Request.URL.Path == "/user/password/reset":
 		fields := c.Keys["body"].(utils.ResetPasswordSchema)
 
 		err = validation.ValidateStruct(&fields,
-			validation.Field(&fields.Email, validation.Required, validation.Match(regexp.MustCompile(`^[A-Za-z0-9._%+-]+@(?:[A-Za-z40-9-]+\.)+[A-Za-z]{2,10}$`))))
+			validation.Field(&fields.Email, validation.Required, validation.By(utils.ValidateEmail)))
 	case c.Request.URL.Path == "/tweet":
 		fields := c.Keys["body"].(utils.PostSchema)
 
 		fmt.Println(fields)
 		err = validation.ValidateStruct(&fields,
-			validation.Field(&fields.Title, validation.Required, validation.Match(regexp.MustCompile(`[a-z_\-]{3,40}`))),
-			validation.Field(&fields.Text, validation.Required, validation.Length(3, 255)))
+			validation.Field(&fields.Title, validation.Required, validation.Length(1, 50), validation.By(utils.ValidateTitle)),
+			validation.Field(&fields.Text, validation.Required, validation.Length(1, 255), validation.By(utils.ValidateTweetText)))
 
 		break
 	case c.Request.URL.Path == "/comment":
@@ -51,34 +49,22 @@ func InputValidate(c *gin.Context) {
 
 		err = validation.ValidateStruct(&fields,
 			validation.Field(&fields.PostId, validation.Required),
-			validation.Field(&fields.Text, validation.Required, validation.By(func(text interface{}) error {
-				if strings.TrimSpace(text.(string)) == "" {
-					return errors.New(" comment cannot be blank")
-				}
-
-				return nil
-			}), validation.Length(1, 255)))
+			validation.Field(&fields.Text, validation.Required, validation.Length(1, 255), validation.By(utils.ValidateCommentText)))
 
 		break
 	case c.Request.URL.Path == "/user" && c.Request.Method == "PUT":
 		fields := c.Keys["body"].(utils.EditSchema)
 
 		err = validation.ValidateStruct(&fields,
-			validation.Field(&fields.Nickname, validation.Match(regexp.MustCompile(`[a-z1-9_'\-]{3,40}`))),
-			validation.Field(&fields.Status, validation.Length(0, 150), validation.By(func(text interface{}) error {
-				if len(text.(string)) != 0 && strings.TrimSpace(text.(string)) == "" {
-					return errors.New(" comment cannot be blank")
-				}
-
-				return nil
-			})))
+			validation.Field(&fields.Nickname, validation.By(utils.ValidateNickname)),
+			validation.Field(&fields.Status, validation.Length(0, 150), validation.By(utils.ValidateStatus)))
 
 		break
 	case c.Request.URL.Path == "/user/password":
 		fields := c.Keys["body"].(utils.ChangePassword)
 
 		err = validation.ValidateStruct(&fields,
-			validation.Field(&fields.Password, validation.Required, validation.Match(regexp.MustCompile(`\w{6,24}`))))
+			validation.Field(&fields.Password, validation.Required, validation.By(utils.ValidatePassword)))
 
 		break
 	}
@@ -87,14 +73,18 @@ func InputValidate(c *gin.Context) {
 
 	if err != nil {
 		for _, v := range strings.Split(err.Error(), ";") {
+			var splitErr []string
+
+			fmt.Println("ERROR", v)
 			if v[0] == ' ' {
-				errorsForUsers[strings.Split(v[1:], ":")[0]] = v[1:]
+				splitErr = strings.Split(v[1:], ":")
 			} else {
-				errorsForUsers[strings.Split(v, ":")[0]] = v
+				splitErr = strings.Split(v, ":")
 			}
+			errorsForUsers[splitErr[0]] = splitErr[1][1:]
 		}
 
-		utils.HandleError(errorsForUsers, err.Error(), c, 400)
+		utils.HandleError(errorsForUsers, "Invalid input", c, 400)
 		c.Abort()
 	}
 

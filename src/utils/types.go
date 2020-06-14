@@ -31,6 +31,10 @@ type Users struct {
 	Id       int    `json:"id"`
 }
 
+type GoogleAuth struct {
+	IdToken map[string]interface{} `json:"id_token"`
+}
+
 type CustomPayload struct {
 	jwt.Payload
 	Id int

@@ -1,6 +1,7 @@
 package api
 
 import (
+	"fmt"
 	"github.com/artemka-debug/twitter-api/src/db"
 	"github.com/artemka-debug/twitter-api/src/utils"
 	"github.com/gin-gonic/gin"
@@ -10,9 +11,10 @@ func LikeUnlikePost(c *gin.Context) {
 	postId := c.Param("id")
 	userIdLike := c.Keys["userId"]
 	var userIdPost int
+	var nickname string
 
-	errorGetting := db.DB.QueryRow(`select user_id from Posts
-                                      where id = ?`, postId).Scan(&userIdPost)
+	errorGetting := db.DB.QueryRow(`select user_id, nickname from Posts
+                                      where id = ?`, postId).Scan(&userIdPost, &nickname)
 
 	if errorGetting != nil {
 		utils.HandleError([]string{"this post not longer available"}, errorGetting.Error(), c, 400)
@@ -38,7 +40,7 @@ func LikeUnlikePost(c *gin.Context) {
 			return
 		}
 
-		utils.SendNotification(userIdPost)
+		utils.SendNotification(userIdPost, fmt.Sprintf("%s liked your post", nickname))
 	} else {
 		//unlike tweet
 		like = -1

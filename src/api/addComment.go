@@ -1,6 +1,7 @@
 package api
 
 import (
+	"fmt"
 	"github.com/artemka-debug/twitter-api/src/db"
 	"github.com/artemka-debug/twitter-api/src/utils"
 	"github.com/gin-gonic/gin"
@@ -27,6 +28,12 @@ func AddComment(c *gin.Context) {
 	}
 
 	commentId, _ := res.LastInsertId()
+	userIdToSendNotification := 0
+	_ = db.DB.QueryRow(`select user_id from posts where id = ?`, body.PostId).Scan(&userIdToSendNotification)
+
+	if userIdToSendNotification > 0 {
+		utils.SendNotification(userIdToSendNotification, fmt.Sprintf("%s commented your post", nickname))
+	}
 
 	utils.SendPosRes(c, 201, gin.H{
 		"id": commentId,

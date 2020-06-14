@@ -22,5 +22,6 @@ func GetUser(c *gin.Context) {
 		"nickname": nickname,
 		"status":   status,
 		"email":    email,
+		"userId": id,
 	})
 }

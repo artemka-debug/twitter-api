@@ -1,11 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"github.com/artemka-debug/twitter-api/src/api"
 	"github.com/artemka-debug/twitter-api/src/middleware"
 	"github.com/gin-gonic/gin"
-
-	"fmt"
 	"os"
 )
 
@@ -47,6 +46,7 @@ func main() {
 	r.POST("/comment", middleware.BodyParser, middleware.InputValidate, middleware.VerifyToken, api.AddComment)
 
 	errorListening := r.Run(fmt.Sprintf(":%s", PORT))
+	//http.DefaultTransport
 
 	if errorListening != nil {
 		fmt.Print("Failed listen", errorListening)

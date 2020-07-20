@@ -1,9 +1,12 @@
 package middleware
 
 import (
+	"fmt"
 	"github.com/artemka-debug/twitter-api/src/middleware/parseBody"
 	"github.com/artemka-debug/twitter-api/src/utils"
 	"github.com/gin-gonic/gin"
+	jsoniter "github.com/json-iterator/go"
+	"reflect"
 	"io/ioutil"
 )
 
@@ -53,3 +56,17 @@ func BodyParser(c *gin.Context) {
 
 	c.Next()
 }
+
+//func parse(data []byte, body interface{}, c *gin.Context) {
+//	valType := reflect.TypeOf(body)
+//	test := reflect.New(valType)
+//
+//	var json = jsoniter.ConfigCompatibleWithStandardLibrary
+//	err := json.Unmarshal(data, test)
+//
+//	if err != nil {
+//		fmt.Println(err)
+//	}
+//
+//	c.Set("body", test)
+//}

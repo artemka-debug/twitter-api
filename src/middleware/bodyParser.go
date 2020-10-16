@@ -18,44 +18,7 @@ func BodyParser(c *gin.Context) {
 		return
 	}
 
-	var bodyType interface{}
-
-	switch {
-	case c.Request.URL.Path == "/sign-up":
-		bodyType = new(utils.SignupSchema)
-
-		break
-	case c.Request.URL.Path == "/login":
-		bodyType = new(utils.LoginSchema)
-
-		break
-	case c.Request.URL.Path == "/user/password/reset":
-		bodyType = new(utils.ResetPasswordSchema)
-
-		break
-	case c.Request.URL.Path == "/tweet":
-		bodyType = new(utils.PostSchema)
-
-		break
-	case c.Request.URL.Path == "/comment":
-		bodyType = new(utils.CommentSchema)
-
-		break
-	case c.Request.URL.Path == "/user" && c.Request.Method == "PUT":
-		bodyType = new(utils.EditSchema)
-
-		break
-	case c.Request.URL.Path == "/user/password":
-		bodyType = new(utils.ChangePassword)
-
-		break
-	case c.Request.URL.Path == "/notification/subscribe":
-		bodyType = new(utils.Subscription)
-
-		break
-	}
-
-	t := reflect.TypeOf(bodyType)
+	t := reflect.TypeOf(utils.GetStructByUri()[c.Request.URL.Path])
 	v := reflect.New(t.Elem())
 	newP := v.Interface()
 	err := json.Unmarshal(data, newP)

@@ -45,7 +45,7 @@ type EditSchema struct {
 	Status   string `json:"status"`
 }
 
-type PostSchema struct {
+type TweetSchema struct {
 	Title string `json:"title"`
 	Text  string `json:"text"`
 }

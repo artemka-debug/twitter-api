@@ -8,7 +8,7 @@ import (
 )
 
 func Post(c *gin.Context) {
-	body := c.Keys["body"].(*utils.PostSchema)
+	body := c.Keys["body"].(*utils.TweetSchema)
 	userId := c.Keys["userId"].(int)
 	var id int
 	var nickname string

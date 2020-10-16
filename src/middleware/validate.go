@@ -36,7 +36,7 @@ func InputValidate(c *gin.Context) {
 		err = validation.ValidateStruct(fields,
 			validation.Field(&fields.Email, validation.Required, validation.By(utils.ValidateEmail)))
 	case c.Request.URL.Path == "/tweet":
-		fields := c.Keys["body"].(*utils.PostSchema)
+		fields := c.Keys["body"].(*utils.TweetSchema)
 
 		fmt.Println(fields)
 		err = validation.ValidateStruct(fields,

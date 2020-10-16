@@ -42,9 +42,9 @@ func SignUp(c *gin.Context) {
 	token := utils.CreateToken(int(id))
 
 	utils.SendPosRes(c, 201, gin.H{
-		"token":   token,
-		"user_id": int(id),
+		"token":    token,
+		"user_id":  int(id),
 		"nickname": nickname,
-		"status": body.Status,
+		"status":   body.Status,
 	})
 }

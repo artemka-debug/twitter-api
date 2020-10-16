@@ -7,7 +7,7 @@ import (
 )
 
 func Edit(c *gin.Context) {
-	body := c.Keys["body"].(utils.EditSchema)
+	body := c.Keys["body"].(*utils.EditSchema)
 	userId := c.Keys["userId"].(int)
 
 	if body.Nickname == "" {

@@ -8,7 +8,7 @@ import (
 )
 
 func Post(c *gin.Context) {
-	body := c.Keys["body"].(utils.PostSchema)
+	body := c.Keys["body"].(*utils.PostSchema)
 	userId := c.Keys["userId"].(int)
 	var id int
 	var nickname string
@@ -30,14 +30,14 @@ func Post(c *gin.Context) {
 	_ = db.DB.QueryRow(`select time from posts where id = ?`, lastId).Scan(&timestamp)
 
 	utils.SendPosRes(c, 200, gin.H{
-		"token":   strings.Split(c.GetHeader("Authorization"), " ")[1],
-		"post_id": int(lastId),
+		"token":    strings.Split(c.GetHeader("Authorization"), " ")[1],
+		"post_id":  int(lastId),
 		"nickname": nickname,
-		"title": body.Title,
-		"text": body.Text,
-		"time": timestamp,
-		"userId": id,
-		"likes": 0,
+		"title":    body.Title,
+		"text":     body.Text,
+		"time":     timestamp,
+		"userId":   id,
+		"likes":    0,
 		"comments": []utils.ErrorForUser{},
 	})
 }

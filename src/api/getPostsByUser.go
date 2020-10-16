@@ -79,7 +79,6 @@ func GetPostsByUser(c *gin.Context) {
 		}
 	}
 
-
 	sort.Slice(posts, func(i, j int) bool {
 		return posts[i]["postId"].(int) < posts[j]["postId"].(int)
 	})

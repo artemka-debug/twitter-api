@@ -12,7 +12,6 @@ require (
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/joho/godotenv v1.3.0
 	github.com/json-iterator/go v1.1.9
-	github.com/modern-go/reflect2 v0.0.0-20180701023420-4b7aa43c6742
 	golang.org/x/crypto v0.0.0-20200510223506-06a226fb4e37
 	golang.org/x/net v0.0.0-20200520182314-0ba52f642ac2 // indirect
 	golang.org/x/sys v0.0.0-20200519105757-fe76b779f299 // indirect

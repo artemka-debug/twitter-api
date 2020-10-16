@@ -1,13 +1,12 @@
 package middleware
 
 import (
+	"encoding/json"
 	"fmt"
-	"github.com/artemka-debug/twitter-api/src/middleware/parseBody"
 	"github.com/artemka-debug/twitter-api/src/utils"
 	"github.com/gin-gonic/gin"
-	jsoniter "github.com/json-iterator/go"
-	"reflect"
 	"io/ioutil"
+	"reflect"
 )
 
 func BodyParser(c *gin.Context) {
@@ -19,54 +18,52 @@ func BodyParser(c *gin.Context) {
 		return
 	}
 
+	var bodyType interface{}
+
 	switch {
 	case c.Request.URL.Path == "/sign-up":
-		parseBody.BodySignup(data, c)
+		bodyType = new(utils.SignupSchema)
 
 		break
 	case c.Request.URL.Path == "/login":
-		parseBody.BodyLogin(data, c)
+		bodyType = new(utils.LoginSchema)
 
 		break
 	case c.Request.URL.Path == "/user/password/reset":
-		parseBody.BodyResetPassword(data, c)
+		bodyType = new(utils.ResetPasswordSchema)
 
 		break
 	case c.Request.URL.Path == "/tweet":
-		parseBody.BodyPost(data, c)
+		bodyType = new(utils.PostSchema)
 
 		break
 	case c.Request.URL.Path == "/comment":
-		parseBody.BodyComment(data, c)
+		bodyType = new(utils.CommentSchema)
 
 		break
 	case c.Request.URL.Path == "/user" && c.Request.Method == "PUT":
-		parseBody.BodyEdit(data, c)
+		bodyType = new(utils.EditSchema)
 
 		break
 	case c.Request.URL.Path == "/user/password":
-		parseBody.BodyChangePassword(data, c)
+		bodyType = new(utils.ChangePassword)
 
 		break
 	case c.Request.URL.Path == "/notification/subscribe":
-		parseBody.BodySubscription(data, c)
+		bodyType = new(utils.Subscription)
 
 		break
 	}
 
+	t := reflect.TypeOf(bodyType)
+	v := reflect.New(t.Elem())
+	newP := v.Interface()
+	err := json.Unmarshal(data, newP)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	c.Set("body", newP)
 	c.Next()
 }
-
-//func parse(data []byte, body interface{}, c *gin.Context) {
-//	valType := reflect.TypeOf(body)
-//	test := reflect.New(valType)
-//
-//	var json = jsoniter.ConfigCompatibleWithStandardLibrary
-//	err := json.Unmarshal(data, test)
-//
-//	if err != nil {
-//		fmt.Println(err)
-//	}
-//
-//	c.Set("body", test)
-//}

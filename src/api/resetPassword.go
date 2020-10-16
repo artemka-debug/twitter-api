@@ -12,7 +12,7 @@ import (
 )
 
 func ResetPassword(c *gin.Context) {
-	body := c.Keys["body"].(utils.ResetPasswordSchema)
+	body := c.Keys["body"].(*utils.ResetPasswordSchema)
 	id := -1
 	errorSelectingFromDb := db.DB.QueryRow(`select id from users where email = ?`, body.Email).Scan(&id)
 

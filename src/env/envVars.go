@@ -16,4 +16,5 @@ var (
 	Password, _        = os.LookupEnv("PASSWORD")
 	VapidPrivateKey, _ = os.LookupEnv("VAPID_PRIVATE_KEY")
 	VapidPublicKey, _  = os.LookupEnv("VAPID_PUBLIC_KEY")
+	PORT, _            = os.LookupEnv("PORT")
 )

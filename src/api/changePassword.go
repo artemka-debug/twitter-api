@@ -8,7 +8,7 @@ import (
 )
 
 func ChangePassword(c *gin.Context) {
-	body := c.Keys["body"].(utils.ChangePassword)
+	body := c.Keys["body"].(*utils.ChangePassword)
 	userId := c.Keys["userId"].(int)
 
 	saltedBytes := []byte(body.Password)

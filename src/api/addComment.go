@@ -8,7 +8,7 @@ import (
 )
 
 func AddComment(c *gin.Context) {
-	body := c.Keys["body"].(utils.CommentSchema)
+	body := c.Keys["body"].(*utils.CommentSchema)
 	userId := c.Keys["userId"].(int)
 	nickname := ""
 
@@ -36,10 +36,10 @@ func AddComment(c *gin.Context) {
 	}
 
 	utils.SendPosRes(c, 201, gin.H{
-		"id": commentId,
-		"text": body.Text,
+		"id":       commentId,
+		"text":     body.Text,
 		"nickname": nickname,
-		"userId": userId,
-		"postId": body.PostId,
+		"userId":   userId,
+		"postId":   body.PostId,
 	})
 }

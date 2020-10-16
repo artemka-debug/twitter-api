@@ -8,7 +8,7 @@ import (
 )
 
 func Login(c *gin.Context) {
-	body := c.Keys["body"].(utils.LoginSchema)
+	body := c.Keys["body"].(*utils.LoginSchema)
 
 	var password, nickname, status string
 	var id int
@@ -34,9 +34,9 @@ func Login(c *gin.Context) {
 	}
 
 	utils.SendPosRes(c, 200, gin.H{
-		"token":   token,
-		"user_id": id,
+		"token":    token,
+		"user_id":  id,
 		"nickname": nickname,
-		"status": status,
+		"status":   status,
 	})
 }

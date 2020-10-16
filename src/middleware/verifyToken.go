@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"fmt"
 	"github.com/artemka-debug/twitter-api/src/secret"
 	"github.com/artemka-debug/twitter-api/src/utils"
 	"github.com/gbrlsnchs/jwt/v3"
@@ -17,7 +16,6 @@ func VerifyToken(c *gin.Context) {
 		c.Abort()
 		return
 	}
-	fmt.Println(c.GetHeader("Authorization"))
 
 	token := strings.Split(c.GetHeader("Authorization"), " ")
 
@@ -35,7 +33,6 @@ func VerifyToken(c *gin.Context) {
 		return
 	}
 
-	fmt.Println("PAYLOAD ID", pl.Id)
 	c.Set("userId", pl.Id)
 	c.Set("token", token[1])
 	c.Next()

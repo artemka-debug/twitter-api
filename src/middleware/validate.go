@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"fmt"
 	"github.com/artemka-debug/twitter-api/src/utils"
 	"github.com/gin-gonic/gin"
 	validation "github.com/go-ozzo/ozzo-validation"
@@ -38,7 +37,6 @@ func InputValidate(c *gin.Context) {
 	case c.Request.URL.Path == "/tweet":
 		fields := c.Keys["body"].(*utils.TweetSchema)
 
-		fmt.Println(fields)
 		err = validation.ValidateStruct(fields,
 			validation.Field(&fields.Title, validation.Required, validation.Length(1, 50), validation.By(utils.ValidateTitle)),
 			validation.Field(&fields.Text, validation.Required, validation.Length(1, 255), validation.By(utils.ValidateTweetText)))
@@ -75,7 +73,6 @@ func InputValidate(c *gin.Context) {
 		for _, v := range strings.Split(err.Error(), ";") {
 			var splitErr []string
 
-			fmt.Println("ERROR", v)
 			if v[0] == ' ' {
 				splitErr = strings.Split(v[1:], ":")
 			} else {

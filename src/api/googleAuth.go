@@ -2,7 +2,6 @@ package api
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/artemka-debug/twitter-api/src/db"
 	"github.com/artemka-debug/twitter-api/src/utils"
 	"github.com/gin-gonic/gin"
@@ -33,14 +32,13 @@ func GoogleAuth(c *gin.Context) {
 
 		_ = db.DB.QueryRow(`select nickname, status, id from users where email = ?`, email).Scan(&nickname, &status, &id)
 
-		fmt.Println(id)
 		token := utils.CreateToken(id)
 
 		utils.SendPosRes(c, 201, gin.H{
-			"token":   token,
-			"user_id": id,
+			"token":    token,
+			"user_id":  id,
 			"nickname": nickname,
-			"status": status,
+			"status":   status,
 		})
 		return
 	}
@@ -66,9 +64,9 @@ func GoogleAuth(c *gin.Context) {
 	token := utils.CreateToken(int(id))
 
 	utils.SendPosRes(c, 201, gin.H{
-		"token":   token,
-		"user_id": int(id),
+		"token":    token,
+		"user_id":  int(id),
 		"nickname": nickname,
-		"status": "",
+		"status":   "",
 	})
 }

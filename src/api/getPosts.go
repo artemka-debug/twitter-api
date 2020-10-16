@@ -1,7 +1,6 @@
 package api
 
 import (
-	"fmt"
 	"github.com/artemka-debug/twitter-api/src/db"
 	"github.com/artemka-debug/twitter-api/src/utils"
 	"github.com/gin-gonic/gin"
@@ -34,9 +33,8 @@ func GetPosts(c *gin.Context) {
 		comLimit, _ = strconv.Atoi(v[0])
 	}
 
-	fmt.Println(page, test)
 	var posts []map[string]interface{}
-	rows, errorGetting := db.DB.Query(`select id, nickname, title, time, text, likes, user_id from posts order by time desc limit ? offset ?`, tweetLimit, page * 100)
+	rows, errorGetting := db.DB.Query(`select id, nickname, title, time, text, likes, user_id from posts order by time desc limit ? offset ?`, tweetLimit, page*100)
 	defer rows.Close()
 
 	if errorGetting != nil {

@@ -2,7 +2,6 @@ package middleware
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/artemka-debug/twitter-api/src/utils"
 	"github.com/gin-gonic/gin"
 	"io/ioutil"
@@ -24,7 +23,8 @@ func BodyParser(c *gin.Context) {
 	err := json.Unmarshal(data, newP)
 
 	if err != nil {
-		fmt.Println(err)
+		utils.HandleError([]string{"try again"}, err.Error(), c, 400)
+		return
 	}
 
 	c.Set("body", newP)

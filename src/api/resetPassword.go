@@ -29,7 +29,6 @@ func ResetPassword(c *gin.Context) {
 		utils.HandleError([]string{"could not send your new password to your email"}, errorSendingEmail.Error(), c, 500)
 		return
 	}
-	fmt.Println(newPass)
 	saltedBytes := []byte(newPass)
 	hashedBytes, errorHashing := bcrypt.GenerateFromPassword(saltedBytes, bcrypt.DefaultCost)
 

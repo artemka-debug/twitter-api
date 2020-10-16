@@ -10,13 +10,11 @@ import (
 func SendNotification(userId int, msg string) {
 	var email, endpoint, auth, p256dh string
 
-	errorGettingSubscription := db.DB.QueryRow(`select email, endpoint, auth, p256dh from subscription inner join users u on subscription.userId = u.id where userId = ?`, userId).Scan(&email, &endpoint, &auth, &p256dh)
-
-	fmt.Println("errorGettingSubscription", errorGettingSubscription)
+	db.DB.QueryRow(`select email, endpoint, auth, p256dh from subscription inner join users u on subscription.userId = u.id where userId = ?`, userId).Scan(&email, &endpoint, &auth, &p256dh)
 
 	subscription := webpush.Subscription{
 		Endpoint: endpoint,
-		Keys:     webpush.Keys{
+		Keys: webpush.Keys{
 			Auth:   auth,
 			P256dh: p256dh,
 		},

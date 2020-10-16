@@ -5,7 +5,6 @@ import (
 	"github.com/artemka-debug/twitter-api/src/api"
 	"github.com/artemka-debug/twitter-api/src/env"
 	"github.com/artemka-debug/twitter-api/src/middleware"
-	"github.com/artemka-debug/twitter-api/src/utils"
 	"github.com/gin-gonic/gin"
 )
 
@@ -14,11 +13,6 @@ func main() {
 
 	r.Use(middleware.SetHeaders)
 
-	r.POST("/main", middleware.BodyParser, func(c *gin.Context) {
-		utils.SendPosRes(c, 200, gin.H{
-			"cool": "hi",
-		})
-	})
 	r.POST("/google/auth", api.GoogleAuth)
 	r.GET("/me", middleware.VerifyToken, api.Me)
 	r.POST("/notification/subscribe", middleware.BodyParser, middleware.VerifyToken, api.SubscribeToNotifications)
